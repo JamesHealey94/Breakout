@@ -8,6 +8,10 @@ package com.gmail.jameshealey1994.breakout;
  */
 public class Game implements Runnable {
 
+    public Thread getThread() {
+        return thread;
+    }
+    
     private Thread thread;
     
     private int points = 0;
@@ -32,5 +36,6 @@ public class Game implements Runnable {
         for (int i = 0; i < 100000; i++) {
             System.out.println(i);
         }
+//        thread.
     }
 }
