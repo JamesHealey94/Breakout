@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,7 +38,7 @@ class GameGUI extends JFrame {
         gamePanel.setVisible(true);
 
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-        
+
         final JButton playButton = new JButton("Play"); // TODO Change to Menubar?
         playButton.addActionListener(new ActionListener() {
             @Override
@@ -44,10 +46,18 @@ class GameGUI extends JFrame {
                 final Thread thread = new Thread() {
                     @Override
                     public void run() {
-                        final Game game = new Game();       
+                        final Game game = new Game() {
+                            @Override
+                            public void updateDisplay() {
+                                DisplayManager.updateBalls(gamePanel, this.getBalls());
+                                DisplayManager.updateBat(gamePanel, this.getBat());
+                            }
+                        };
                         game.start();
-                        while (game.getThread().isAlive()) {
-                            System.out.println("game");
+                        try {
+                            game.getThread().join();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         JOptionPane.showMessageDialog(null, "Points: " + game.getPoints()); // TODO figure out how to get gamegui instead of null
                     }
@@ -60,7 +70,7 @@ class GameGUI extends JFrame {
 
         this.add(buttonPanel, BorderLayout.NORTH);
         buttonPanel.setVisible(true);
-                
+
         this.setVisible(true);
     }
 }
