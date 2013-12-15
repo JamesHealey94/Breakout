@@ -71,6 +71,20 @@ public abstract class MovableGameObject extends GameObject {
     }
 
     /**
+     * Changes the X direction.
+     */
+    public void changeDirectionX() {
+        setX(getX() * 1);
+    }
+
+    /**
+     * Changes the Y direction.
+     */
+    public void changeDirectionY() {
+        setY(getY() * 1);
+    }
+
+    /**
      * Get the value of delay.
      *
      * @return the value of delay
