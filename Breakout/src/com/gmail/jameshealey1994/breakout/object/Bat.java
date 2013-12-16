@@ -3,7 +3,7 @@ package com.gmail.jameshealey1994.breakout.object;
 import java.awt.Color;
 
 /**
- * Class representing a Movable Ball Game Object.
+ * Class representing a Movable Bat Game Object.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
