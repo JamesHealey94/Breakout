@@ -14,9 +14,11 @@ import java.util.Collection;
  */
 public class Game implements Runnable {
 
+    private DisplayManager displayManager;
+
     private Collection<Ball> balls;
 
-    private Bat bat;
+    private Bat bat; // TODO several bats once special effects are added.
 
     private int livesRemaining = 3;
 
@@ -24,15 +26,21 @@ public class Game implements Runnable {
 
     private int points = 0;
 
-    public Game() {
-        final Ball ball = new Ball(1, 1, 100, 20, 20, 10, 10, Color.BLUE);
+    public Game(DisplayManager displayManager) {
+        this.displayManager = displayManager;
+        
+        final Ball ball = new Ball(1, 1, 10, 20, 20, 10, 10, Color.BLUE, displayManager);
         this.balls = new ArrayList<>();
         this.balls.add(ball);
+        
+        final Ball ball2 = new Ball(1, 1, 10, 50, 30, 10, 10, Color.GREEN, displayManager);
+        this.balls.add(ball2);
 
-        this.bat = new Bat(1, 1, 10, 100, 50, Color.BLACK);
+        this.bat = new Bat(1, 1, 10, 100, 50, Color.BLACK, displayManager);
     }
 
-    public Game(Collection<Ball> balls, Bat bat) {
+    public Game(Collection<Ball> balls, Bat bat, DisplayManager displayManager) {
+        this.displayManager = displayManager;
         this.balls = balls;
         this.bat = bat;
     }
@@ -44,23 +52,18 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        while (hasLivesRemaining()) {
-            //updatePositionsAndSpeeds();
-            updateDisplay();
-            livesRemaining--;
+        for (Ball ball : getBalls()) {
+            ball.start();
         }
+        while (hasLivesRemaining()) { }
 
-        // TODO remove - just for testing
-        for (int i = 0; i < 100000; i++) {
-            System.out.println(i);
-            updateDisplay();
-        }
+//            livesRemaining--;
+
+//        // TODO remove - just for testing
+//        for (int i = 0; i < 100000; i++) {
+//            System.out.println(i);
+//        }
     }
-
-    /**
-     * To be overridden to however you would like the game to be displayed.
-     */
-    public void updateDisplay() { }
 
     public Thread getThread() { // TODO needed?
         return thread;
@@ -135,7 +138,7 @@ public class Game implements Runnable {
 
     /**
      * Returns if lives remaining is more than 0.
-     * 
+     *
      * @return if livesRemaing > 0
      */
     public boolean hasLivesRemaining() {

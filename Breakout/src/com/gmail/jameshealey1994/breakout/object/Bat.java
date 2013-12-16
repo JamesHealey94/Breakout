@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout.object;
 
+import com.gmail.jameshealey1994.breakout.DisplayManager;
 import java.awt.Color;
 
 /**
@@ -19,7 +20,7 @@ public class Bat extends MovableGameObject {
      */
     public static final int BAT_HEIGHT = 10;
 
-    public Bat(int stepX, int stepY, int delay, int x, int width, Color color) {
-        super(stepX, stepY, delay, x, BAT_Y, BAT_HEIGHT, width, color);
+    public Bat(int stepX, int stepY, int delay, int x, int width, Color color, DisplayManager displayManager) {
+        super(stepX, stepY, delay, x, BAT_Y, BAT_HEIGHT, width, color, displayManager);
     }
 }

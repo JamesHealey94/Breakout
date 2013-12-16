@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout.object;
 
+import com.gmail.jameshealey1994.breakout.DisplayManager;
 import java.awt.Color;
 
 /**
@@ -35,24 +36,36 @@ public abstract class GameObject {
      * The color of the GameObject.
      */
     private Color color;
+    
+    private DisplayManager displayManager;
 
     /**
      * Constructs a new GameObject using the passed values.
      *
-     * @param x         leftmost X coordinate of the GameObject
-     * @param y         highest y coordinate of the GameObject
-     * @param height    height of the GameObject
-     * @param width     width of the GameObject
-     * @param color     color of the GameObject
+     * @param x                 leftmost X coordinate of the GameObject
+     * @param y                 highest y coordinate of the GameObject
+     * @param height            height of the GameObject
+     * @param width             width of the GameObject
+     * @param color             color of the GameObject
+     * @param displayManager    displayManager of the GameObject
      */
-    public GameObject(int x, int y, int height, int width, Color color) {
+    public GameObject(int x, int y, int height, int width, Color color, DisplayManager displayManager) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.color = color;
+        this.displayManager = displayManager;
     }
 
+    public void clear() {
+        displayManager.clear(this);
+    }
+    
+    public void display() {
+        displayManager.display(this);
+    }
+    
     /**
      * Get the value of x.
      *

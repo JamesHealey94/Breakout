@@ -1,13 +1,16 @@
 package com.gmail.jameshealey1994.breakout.object;
 
+import com.gmail.jameshealey1994.breakout.DisplayManager;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Abstract class representing a GameObject that can move.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
-public abstract class MovableGameObject extends GameObject {
+public abstract class MovableGameObject extends GameObject implements Runnable {
 
     /**
      * How far the object moves right every step.
@@ -24,16 +27,60 @@ public abstract class MovableGameObject extends GameObject {
      */
     private int delay;
 
+    private Thread thread;
+
     /**
      * Constructs a new MovableGameObject using the passed values.
      */
-    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color) {
-        super(x, y, height, width, color);
+    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, DisplayManager displayManager) {
+        super(x, y, height, width, color, displayManager);
         this.stepX = stepX;
         this.stepY = stepY;
         this.delay = delay;
     }
 
+    /**
+     * Moves the object a step in each direction.
+     */
+    public void move() {
+        setX(getX() + getStepX());
+        setY(getY() + getStepY());
+    }
+
+    public void start() {
+        thread = new Thread(this);
+        thread.start();
+    }
+    
+    @Override
+    public void run() {
+        while (thread.isAlive()) {
+            synchronized (Lock.lock) {
+                clear();
+            }
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MovableGameObject.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //displayManager.clear(this);
+            move(); // TODO check for collisions
+            //displayManager.display(this);
+            synchronized (Lock.lock) {
+                display();
+            }
+        }
+    }
+    
+    public Thread getThread() {
+        return thread;
+    }
+    
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+    
     /**
      * Get the value of stepX.
      *

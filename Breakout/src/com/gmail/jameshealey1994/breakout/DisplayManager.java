@@ -1,10 +1,8 @@
 package com.gmail.jameshealey1994.breakout;
 
-import com.gmail.jameshealey1994.breakout.object.Bat;
-import com.gmail.jameshealey1994.breakout.object.Ball;
-import java.awt.Component;
+import com.gmail.jameshealey1994.breakout.object.GameObject;
 import java.awt.Graphics;
-import java.util.Collection;
+import javax.swing.JComponent;
 
 /**
  * Class containing a static method to display an object.
@@ -13,15 +11,23 @@ import java.util.Collection;
  */
 public class DisplayManager {
 
-   public static void updateBalls(Component component, Collection<Ball> balls) {
+    private JComponent component;
+
+    public DisplayManager(JComponent component) {
+        this.component = component;
+    }
+
+   public void display(GameObject obj) {
        final Graphics g = component.getGraphics();
-       for (Ball ball : balls) {
-            g.drawOval(ball.getX(), ball.getY(), ball.getHeight(), ball.getWidth());
-       }
+       g.setColor(obj.getColor());
+       g.fillRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
+//       g.setColor(Color.BLACK);
+//       g.drawRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
    }
 
-   public static void updateBat(Component component, Bat bat) {
+   public void clear(GameObject obj) {
        final Graphics g = component.getGraphics();
-       g.drawRect(bat.getX(), component.getHeight() - bat.getY(), bat.getWidth(), bat.getHeight());
+       g.setColor(component.getBackground());
+       g.fillRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
    }
 }

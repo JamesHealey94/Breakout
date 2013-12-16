@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
-class GameGUI extends JFrame {
+public class GameGUI extends JFrame {
 
     /**
      * Creates a new instance of the Game GUI.
@@ -46,13 +46,8 @@ class GameGUI extends JFrame {
                 final Thread thread = new Thread() {
                     @Override
                     public void run() {
-                        final Game game = new Game() {
-                            @Override
-                            public void updateDisplay() {
-                                DisplayManager.updateBalls(gamePanel, this.getBalls());
-                                DisplayManager.updateBat(gamePanel, this.getBat());
-                            }
-                        };
+                        final DisplayManager displayManager = new DisplayManager(gamePanel);
+                        final Game game = new Game(displayManager);
                         game.start();
                         try {
                             game.getThread().join();
