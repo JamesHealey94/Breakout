@@ -51,36 +51,36 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
-    
+
     @Override
     public void run() {
         while (thread.isAlive()) {
             synchronized (Lock.lock) {
                 clear();
             }
+
+            move(); // TODO check for collisions
+
+            synchronized (Lock.lock) {
+                display();
+            }
+
             try {
                 Thread.sleep(delay);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MovableGameObject.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            //displayManager.clear(this);
-            move(); // TODO check for collisions
-            //displayManager.display(this);
-            synchronized (Lock.lock) {
-                display();
-            }
         }
     }
-    
+
     public Thread getThread() {
         return thread;
     }
-    
+
     public void setThread(Thread thread) {
         this.thread = thread;
     }
-    
+
     /**
      * Get the value of stepX.
      *
