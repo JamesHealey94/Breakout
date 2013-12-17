@@ -32,7 +32,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     private boolean alive;
 
-    private PositionManager positionManager;
+    private final PositionManager positionManager;
     
     /**
      * Constructs a new MovableGameObject using the passed values.

@@ -10,7 +10,7 @@ import java.util.Set;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class PositionManager {
-    private Set<GameObject> objects = new HashSet<>();
+    private final Set<GameObject> objects = new HashSet<>();
 
     public boolean addGameObject(GameObject object) {
         return objects.add(object);
@@ -19,10 +19,10 @@ public class PositionManager {
     public boolean removeGameObject(GameObject object) {
         return objects.remove(object);
     }
-    
-    private int maxX;
-    
-    private int maxY;
+
+    private final int maxX;
+
+    private final int maxY;
 
     public PositionManager(int maxX, int maxY) {
         this.maxX = maxX;
@@ -33,13 +33,12 @@ public class PositionManager {
     public void update(MovableGameObject moving) {
         for (GameObject obj : objects) {
             if (!(moving.equals(obj))) {
-                final boolean xBounce = (((moving.getX() + moving.getWidth()) >= obj.getX())
-                        && ((moving.getX() + moving.getWidth()) <= (obj.getX() + obj.getWidth())));
-                final boolean yBounce = ((((moving.getY() + moving.getHeight())) >= obj.getY())
-                        && ((moving.getY() - moving.getHeight()) <= (obj.getY() - obj.getHeight()))); // TODO should it be + or -?
-                
-                if (xBounce && yBounce) {
-                    if (xBounce) {
+                final boolean bounceX = isTouchingX(moving, obj);
+                final boolean bounceY = isTouchingY(moving, obj);
+
+                // TODO solve logic error
+                if (bounceX && bounceY) {
+                    if (bounceX) {
                         System.out.println("x collision");
                         moving.changeDirectionX();
                         if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
@@ -47,7 +46,7 @@ public class PositionManager {
                             objMoving.changeDirectionX();
                         }
                     }
-                    if (yBounce) {
+                    if (bounceY) {
                         System.out.println("y collision");
                         moving.changeDirectionY();
                         if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
@@ -75,6 +74,16 @@ public class PositionManager {
         }
 
         moving.step();
+    }
+
+    private boolean isTouchingX(MovableGameObject moving, GameObject obj) {
+        return ((moving.getX() + moving.getWidth()) >= obj.getX())
+                && ((moving.getX() + moving.getWidth()) <= (obj.getX() + obj.getWidth()));
+    }
+
+    private boolean isTouchingY(MovableGameObject moving, GameObject obj) {
+        return (((moving.getY() + moving.getHeight())) >= obj.getY())
+                && ((moving.getY() - moving.getHeight()) <= (obj.getY() - obj.getHeight()));
     }
 
     private boolean isTouchingCeiling(MovableGameObject moving) {

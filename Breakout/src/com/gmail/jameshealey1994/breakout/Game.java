@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public class Game implements Runnable {
     
-    private PositionManager positionManager;
+    private final PositionManager positionManager;
 
     private Collection<Ball> balls;
 

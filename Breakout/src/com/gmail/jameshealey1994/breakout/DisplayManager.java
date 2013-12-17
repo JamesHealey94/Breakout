@@ -11,7 +11,7 @@ import javax.swing.JComponent;
  */
 public class DisplayManager {
 
-    private JComponent component;
+    private final JComponent component;
 
     public DisplayManager(JComponent component) {
         this.component = component;
