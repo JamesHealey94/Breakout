@@ -13,8 +13,8 @@ import java.util.Collection;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class Game implements Runnable {
-
-    private DisplayManager displayManager;
+    
+    private PositionManager positionManager;
 
     private Collection<Ball> balls;
 
@@ -25,24 +25,18 @@ public class Game implements Runnable {
     private Thread thread;
 
     private int points = 0;
-
-    public Game(DisplayManager displayManager) {
-        this.displayManager = displayManager;
+   
+    public Game(DisplayManager displayManager, int maxX, int maxY) {
+        this.positionManager = new PositionManager(maxX, maxY);
         
-        final Ball ball = new Ball(1, 1, 10, 20, 20, 10, 10, Color.BLUE, displayManager);
+        final Ball ball = new Ball(1, 1, 10, 20, 20, 10, 10, Color.BLUE, displayManager, positionManager);
         this.balls = new ArrayList<>();
         this.balls.add(ball);
         
-        final Ball ball2 = new Ball(1, 1, 10, 50, 30, 10, 10, Color.GREEN, displayManager);
+        final Ball ball2 = new Ball(1, 1, 10, 50, 30, 10, 10, Color.GREEN, displayManager, positionManager);
         this.balls.add(ball2);
 
-        this.bat = new Bat(1, 1, 10, 100, 50, Color.BLACK, displayManager);
-    }
-
-    public Game(Collection<Ball> balls, Bat bat, DisplayManager displayManager) {
-        this.displayManager = displayManager;
-        this.balls = balls;
-        this.bat = bat;
+        this.bat = new Bat(1, 1, 10, 100, 50, Color.BLACK, displayManager, positionManager);
     }
 
     public void start() {

@@ -20,6 +20,9 @@ import javax.swing.JPanel;
  */
 public class GameGUI extends JFrame {
 
+    private int width = 400;
+    private int height = 400;
+    
     /**
      * Creates a new instance of the Game GUI.
      *
@@ -31,7 +34,7 @@ public class GameGUI extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //this.setIconImage(null); // TODO create Icon
         this.setLayout(new BorderLayout());
-        this.setBounds(400, 400, 400, 400); // TODO replace
+        this.setBounds(400, 400, width, height); // TODO replace
 
         final JPanel gamePanel = new JPanel();
         this.add(gamePanel, BorderLayout.CENTER);
@@ -47,7 +50,7 @@ public class GameGUI extends JFrame {
                     @Override
                     public void run() {
                         final DisplayManager displayManager = new DisplayManager(gamePanel);
-                        final Game game = new Game(displayManager);
+                        final Game game = new Game(displayManager, width, height);
                         game.start();
                         try {
                             game.getThread().join();

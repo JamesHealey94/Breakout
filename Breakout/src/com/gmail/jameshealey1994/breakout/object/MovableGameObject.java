@@ -1,6 +1,7 @@
 package com.gmail.jameshealey1994.breakout.object;
 
 import com.gmail.jameshealey1994.breakout.DisplayManager;
+import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,20 +30,33 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     private Thread thread;
 
+    private boolean alive;
+
+    private PositionManager positionManager;
+    
     /**
      * Constructs a new MovableGameObject using the passed values.
      */
-    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, DisplayManager displayManager) {
+    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
         super(x, y, height, width, color, displayManager);
         this.stepX = stepX;
         this.stepY = stepY;
         this.delay = delay;
+        this.positionManager = positionManager;
     }
 
     /**
-     * Moves the object a step in each direction.
+     * Moves an object 1 step, changing direction and other events if needed.
+     * e.g. hitting a wall or object would cause a change in direction.
      */
     public void move() {
+        positionManager.update(this);
+    }
+    
+    /**
+     * Moves the object a step in each direction.
+     */
+    public void step() {
         setX(getX() + getStepX());
         setY(getY() + getStepY());
     }
@@ -50,18 +64,17 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     public void start() {
         thread = new Thread(this);
         thread.start();
+        alive = true;
     }
 
     @Override
     public void run() {
-        while (thread.isAlive()) {
+        positionManager.addGameObject(this); // TODO change cause its wrong
+        while (isAlive()) {
             synchronized (Lock.lock) {
                 clear();
-            }
-
-            move(); // TODO check for collisions
-
-            synchronized (Lock.lock) {
+                // TODO check for collisions
+                move();
                 display();
             }
 
@@ -71,6 +84,26 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
                 Logger.getLogger(MovableGameObject.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("dead");
+        positionManager.removeGameObject(this); // TODO change cause its wrong
+    }
+    
+    /**
+     * Get the value of alive
+     *
+     * @return the value of alive
+     */
+    public boolean isAlive() {
+        return alive;
+    }
+
+    /**
+     * Set the value of alive
+     *
+     * @param alive new value of alive
+     */
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public Thread getThread() {
@@ -121,14 +154,14 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      * Changes the X direction.
      */
     public void changeDirectionX() {
-        setX(getX() * 1);
+        setStepX(getStepX() * -1);
     }
 
     /**
      * Changes the Y direction.
      */
     public void changeDirectionY() {
-        setY(getY() * 1);
+        setStepY(getStepY() * -1);
     }
 
     /**
