@@ -2,6 +2,7 @@ package com.gmail.jameshealey1994.breakout;
 
 import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Ball;
+import com.gmail.jameshealey1994.breakout.object.Block;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +18,8 @@ public class Game implements Runnable {
     private final PositionManager positionManager;
 
     private Collection<Ball> balls;
+    
+    private Collection<Block> blocks;
 
     private Bat bat; // TODO several bats once special effects are added.
 
@@ -29,13 +32,18 @@ public class Game implements Runnable {
     public Game(DisplayManager displayManager, int maxX, int maxY) {
         this.positionManager = new PositionManager(maxX, maxY);
         
-        final Ball ball = new Ball(1, 1, 10, 20, 20, 10, 10, Color.BLUE, displayManager, positionManager);
         this.balls = new ArrayList<>();
-        this.balls.add(ball);
-        
-        final Ball ball2 = new Ball(1, 1, 10, 50, 30, 10, 10, Color.GREEN, displayManager, positionManager);
-        this.balls.add(ball2);
+        this.balls.add(new Ball(1, 1, 10, 20, 20, 10, 10, Color.BLUE, displayManager, positionManager));
+        this.balls.add(new Ball(1, 1, 10, 170, 30, 10, 10, Color.GREEN, displayManager, positionManager));
 
+        this.blocks = new ArrayList<>();
+        this.blocks.add(new Block(40, 30, 10, 30, Color.RED, displayManager));
+        this.blocks.add(new Block(70, 30, 10, 30, Color.CYAN, displayManager));
+        this.blocks.add(new Block(10, 30, 10, 30, Color.ORANGE, displayManager));
+        this.blocks.add(new Block(10, 50, 10, 30, Color.YELLOW, displayManager));
+        this.blocks.add(new Block(40, 50, 10, 30, Color.MAGENTA, displayManager));
+        this.blocks.add(new Block(70, 50, 10, 30, Color.PINK, displayManager));
+                
         this.bat = new Bat(1, 1, 10, 100, 50, Color.BLACK, displayManager, positionManager);
     }
 
@@ -46,6 +54,11 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+        for (Block block : getBlocks()) {
+            positionManager.addGameObject(block);
+            block.display();
+        }
+        //bat.start();
         for (Ball ball : getBalls()) {
             ball.start();
         }
@@ -137,5 +150,13 @@ public class Game implements Runnable {
      */
     public boolean hasLivesRemaining() {
         return livesRemaining > 0;
+    }
+
+    public Collection<Block> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(Collection<Block> blocks) {
+        this.blocks = blocks;
     }
 }

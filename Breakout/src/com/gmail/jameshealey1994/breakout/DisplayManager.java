@@ -20,11 +20,11 @@ public class DisplayManager {
    public void display(GameObject obj) {
        final Graphics g = component.getGraphics();
        g.setColor(obj.getColor());
-       g.fillOval(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
+       g.fillRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
 //       g.setColor(Color.BLACK);
 //       g.drawRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
    }
-
+   
    public void clear(GameObject obj) {
        final Graphics g = component.getGraphics();
        g.setColor(component.getBackground());

@@ -37,7 +37,7 @@ public abstract class GameObject {
      */
     private Color color;
     
-    private DisplayManager displayManager;
+    private final DisplayManager displayManager;
 
     /**
      * Constructs a new GameObject using the passed values.

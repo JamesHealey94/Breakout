@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -34,14 +35,13 @@ public class GameGUI extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //this.setIconImage(null); // TODO create Icon
         this.setLayout(new BorderLayout());
-        this.setBounds(400, 400, width, height); // TODO replace
-
-        final JPanel gamePanel = new JPanel();
-        this.add(gamePanel, BorderLayout.CENTER);
+        
+        final JPanel gamePanel = new JPanel(); // TODO should it be double buffered?
+        gamePanel.setBounds(new Rectangle(width, height)); // TODO replace
         gamePanel.setVisible(true);
-
+        this.add(gamePanel, BorderLayout.CENTER);
+        
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-
         final JButton playButton = new JButton("Play"); // TODO Change to Menubar?
         playButton.addActionListener(new ActionListener() {
             @Override

@@ -69,23 +69,25 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     @Override
     public void run() {
-        positionManager.addGameObject(this); // TODO change cause its wrong
+        positionManager.addGameObject(this); // TODO change?
         while (isAlive()) {
             synchronized (Lock.lock) {
                 clear();
-                // TODO check for collisions
                 move();
                 display();
             }
-
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MovableGameObject.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            sleep();
         }
-        System.out.println("dead");
-        positionManager.removeGameObject(this); // TODO change cause its wrong
+        System.out.println("dead"); // TODO remove
+        positionManager.removeGameObject(this); // TODO change?
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MovableGameObject.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
