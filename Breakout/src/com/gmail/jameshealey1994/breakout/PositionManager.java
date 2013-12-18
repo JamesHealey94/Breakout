@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout;
 
+import com.gmail.jameshealey1994.breakout.object.Block;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import com.gmail.jameshealey1994.breakout.object.MovableGameObject;
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class PositionManager {
     }
 
     // Bounce ball off other objects.
-    public void update(MovableGameObject moving) {
+    public void update(MovableGameObject moving) { // TODO bat is a MovableGameObject, this would need to be changed.
         for (GameObject obj : objects) {
             if (!(moving.equals(obj))) {
                 final boolean bounceX = isTouchingX(moving, obj);
@@ -54,6 +55,12 @@ public class PositionManager {
                             objMoving.changeDirectionY();
                         }
                     }
+                    if (obj instanceof Block) {
+                        obj.clear();
+                        this.removeGameObject(obj);
+                        // TODO increase points
+                    }
+                    break; // TODO check
                 }
             }
         }
