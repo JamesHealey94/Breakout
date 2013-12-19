@@ -11,6 +11,6 @@ public class Breakout {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        final GameGUI gui = new GameGUI();
+        final MainMenuGUI gui = new MainMenuGUI();
     }
 }
