@@ -5,7 +5,7 @@ import java.awt.Color;
 
 /**
  * Class representing a Block Game Object.
- * 
+ *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class Block extends GameObject {

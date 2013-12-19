@@ -1,6 +1,7 @@
-package com.gmail.jameshealey1994.breakout.object;
+package com.gmail.jameshealey1994.breakout;
 
 /**
+ * Class used to define objects used to synchronise threads.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */

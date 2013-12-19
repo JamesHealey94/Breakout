@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * Class to manage the position of GameObjects in a Game.
+ * 
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class PositionManager {

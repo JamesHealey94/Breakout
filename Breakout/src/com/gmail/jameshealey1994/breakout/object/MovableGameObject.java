@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout.object;
 
+import com.gmail.jameshealey1994.breakout.Lock;
 import com.gmail.jameshealey1994.breakout.DisplayManager;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
@@ -30,10 +31,13 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     private Thread thread;
 
+    /**
+     * If the GameObject is alive and should continue to run.
+     */
     private boolean alive;
 
     private final PositionManager positionManager;
-    
+
     /**
      * Constructs a new MovableGameObject using the passed values.
      */
@@ -52,7 +56,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     public void move() {
         positionManager.update(this);
     }
-    
+
     /**
      * Moves the object a step in each direction.
      */
@@ -89,7 +93,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
             Logger.getLogger(MovableGameObject.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Get the value of alive
      *

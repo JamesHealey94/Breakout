@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 
 /**
- * Class containing a static method to display an object.
+ * Class responsible for how objects are displayed.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */

@@ -36,7 +36,7 @@ public abstract class GameObject {
      * The color of the GameObject.
      */
     private Color color;
-    
+
     private final DisplayManager displayManager;
 
     /**
@@ -61,11 +61,11 @@ public abstract class GameObject {
     public void clear() {
         displayManager.clear(this);
     }
-    
+
     public void display() {
         displayManager.display(this);
     }
-    
+
     /**
      * Get the value of x.
      *
