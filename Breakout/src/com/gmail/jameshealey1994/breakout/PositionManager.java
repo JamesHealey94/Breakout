@@ -35,7 +35,7 @@ public class PositionManager {
     public void update(MovableGameObject moving) { // TODO bat is a MovableGameObject, this would need to be changed.
         for (GameObject obj : objects) {
             if (!(moving.equals(obj))) {
-                final boolean bounceX = isTouchingX(moving, obj);
+                final boolean bounceX = isTouchingX(moving, obj); // TODO test an object inside an object, should position be set as well as direction changed?
                 final boolean bounceY = isTouchingY(moving, obj);
 
                 // TODO solve logic error

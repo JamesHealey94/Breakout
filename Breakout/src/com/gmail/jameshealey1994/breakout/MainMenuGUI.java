@@ -30,11 +30,12 @@ public class MainMenuGUI extends JFrame {
         this.setLayout(new BorderLayout());
 
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-        final JButton playButton = new JButton("Play"); // TODO Change to Menubar?
+        final JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameGUI gameGUI = new GameGUI();
+                final GameGUI gameGUI = new GameGUI();
+                //gameGUI.setLocationRelativeTo(this); TODO find a nice way to set the GameGUI relative to the Main Menu
                 gameGUI.setVisible(true);
                 gameGUI.start();
             }
@@ -46,5 +47,6 @@ public class MainMenuGUI extends JFrame {
         this.add(buttonPanel);
         this.setVisible(true);
         this.pack();
+
     }
 }

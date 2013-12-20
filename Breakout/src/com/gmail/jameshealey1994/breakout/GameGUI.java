@@ -40,17 +40,18 @@ public class GameGUI extends JFrame {
         gamePanel.setPreferredSize(new Dimension(width, height)); // TODO replace
         gamePanel.setVisible(true);
         this.add(gamePanel, BorderLayout.CENTER);
+        //this.setResizable(false); TODO fix display issue when resizing.
         this.pack();
     }
 
     public void start() {
         gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'),
                 "moveLeft");
-        gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("left"),
+        gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"),
                 "moveLeft");
         gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'),
                 "moveRight");
-        gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("right"),
+        gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"),
                 "moveRight");
 
         this.setVisible(true);
@@ -63,13 +64,13 @@ public class GameGUI extends JFrame {
                 Action moveLeft = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("left");
+                        System.out.println("left"); // TODO remove
                         Bat bat = game.getBat();
 
                         synchronized (Lock.lock) {
-                            for (int i = 0; i < 10; i++) {
+                            for (int i = 0; i < 10; i++) { // TODO improve
                                 bat.clear();
-                                bat.setX(bat.getX() - 1);
+                                bat.setX(bat.getX() - 1); // TODO - Fix being able to go off the screen.
                                 bat.display();
                             }
                         }
@@ -79,13 +80,13 @@ public class GameGUI extends JFrame {
                 Action moveRight = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("right");
+                        System.out.println("right"); // TODO remove
                         Bat bat = game.getBat();
 
                         synchronized (Lock.lock) {
                             for (int i = 0; i < 10; i++) {
                                 bat.clear();
-                                bat.setX(bat.getX() + 1);
+                                bat.setX(bat.getX() + 1); // TODO - Fix being able to go off the screen.
                                 bat.display();
                             }
                         }
@@ -101,7 +102,7 @@ public class GameGUI extends JFrame {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                JOptionPane.showMessageDialog(null, "Points: " + game.getPoints()); // TODO figure out how to get gamegui instead of null
+                JOptionPane.showMessageDialog(gamePanel, "Points: " + game.getPoints());
             }
         };
         thread.start();
