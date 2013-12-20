@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * Class to manage the position of GameObjects in a Game.
- * 
+ *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class PositionManager {
@@ -86,12 +86,12 @@ public class PositionManager {
 
     private boolean isTouchingX(MovableGameObject moving, GameObject obj) {
         return ((moving.getX() + moving.getWidth()) >= obj.getX())
-                && ((moving.getX() + moving.getWidth()) <= (obj.getX() + obj.getWidth()));
+                && ((moving.getX()/* + moving.getWidth()*/) <= (obj.getX() + obj.getWidth()));
     }
 
     private boolean isTouchingY(MovableGameObject moving, GameObject obj) {
-        return (((moving.getY() + moving.getHeight())) >= obj.getY())
-                && ((moving.getY() - moving.getHeight()) <= (obj.getY() - obj.getHeight()));
+        return ((moving.getY() + moving.getHeight()) >= obj.getY())
+                && ((moving.getY()/* + moving.getHeight()*/) <= (obj.getY() + obj.getHeight()));
     }
 
     private boolean isTouchingCeiling(MovableGameObject moving) {
@@ -101,7 +101,7 @@ public class PositionManager {
 
     private boolean isTouchingFloor(MovableGameObject moving) {
         System.out.println("bottom         " + moving.getX() + " " + moving.getY());
-        return moving.getY() >= maxY;
+        return moving.getY() + moving.getHeight() >= maxY;
     }
 
     private boolean isTouchingLeftWall(MovableGameObject moving) {
