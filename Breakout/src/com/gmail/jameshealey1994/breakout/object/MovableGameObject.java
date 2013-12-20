@@ -82,7 +82,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
             }
             sleep();
         }
-        System.out.println("dead"); // TODO remove
+        //System.out.println("dead"); // TODO remove
         positionManager.removeGameObject(this); // TODO change?
     }
 

@@ -41,7 +41,7 @@ public class PositionManager {
                 // TODO solve logic error
                 if (bounceX && bounceY) {
                     if (bounceX) {
-                        System.out.println("x collision");
+                        //System.out.println("x collision");
                         moving.changeDirectionX();
                         if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
                             MovableGameObject objMoving = (MovableGameObject) obj;
@@ -49,7 +49,7 @@ public class PositionManager {
                         }
                     }
                     if (bounceY) {
-                        System.out.println("y collision");
+                        //System.out.println("y collision");
                         moving.changeDirectionY();
                         if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
                             MovableGameObject objMoving = (MovableGameObject) obj;
@@ -95,22 +95,30 @@ public class PositionManager {
     }
 
     private boolean isTouchingCeiling(MovableGameObject moving) {
-        System.out.println("top            " + moving.getX() + " " + moving.getY());
+        //System.out.println("top            " + moving.getX() + " " + moving.getY());
         return moving.getY() <= 0;
     }
 
     private boolean isTouchingFloor(MovableGameObject moving) {
-        System.out.println("bottom         " + moving.getX() + " " + moving.getY());
+        //System.out.println("bottom         " + moving.getX() + " " + moving.getY());
         return moving.getY() + moving.getHeight() >= maxY;
     }
 
     private boolean isTouchingLeftWall(MovableGameObject moving) {
-        System.out.println("left wall      " + moving.getX() + " " + moving.getY());
+        //System.out.println("left wall      " + moving.getX() + " " + moving.getY());
         return moving.getX() <= 0;
     }
 
     private boolean isTouchingRightWall(MovableGameObject moving) {
-        System.out.println("right wall     " + moving.getX() + " " + moving.getY());
+        //System.out.println("right wall     " + moving.getX() + " " + moving.getY());
         return moving.getX() + moving.getWidth() >= maxX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMaxY() {
+        return maxY;
     }
 }

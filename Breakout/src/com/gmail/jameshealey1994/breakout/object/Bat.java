@@ -9,7 +9,7 @@ import java.awt.Color;
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
-public class Bat extends MovableGameObject {
+public class Bat extends GameObject {
 
     /**
      * The Y coordinate of the top of all the bats.
@@ -21,7 +21,7 @@ public class Bat extends MovableGameObject {
      */
     public static final int BAT_HEIGHT = 10;
 
-    public Bat(int stepX, int stepY, int delay, int x, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
-        super(stepX, stepY, delay, x, BAT_Y, BAT_HEIGHT, width, color, displayManager, positionManager);
+    public Bat(int x, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
+        super(x, positionManager.getMaxY() - BAT_Y, BAT_HEIGHT, width, color, displayManager);
     }
 }
