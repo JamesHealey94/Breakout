@@ -9,8 +9,6 @@ import java.awt.Color;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public abstract class GameObject {
-//isAlive = true TODO needed?
-//die() { isAlive = false; this = null; }
 
     /**
      * The leftmost X coordinate of the GameObject.
@@ -37,6 +35,9 @@ public abstract class GameObject {
      */
     private Color color;
 
+    /**
+     * Manages how the GameObject is displayed.
+     */
     private final DisplayManager displayManager;
 
     /**
@@ -58,12 +59,20 @@ public abstract class GameObject {
         this.displayManager = displayManager;
     }
 
-    public void clear() {
-        displayManager.clear(this);
-    }
-
+    /**
+     * Displays the GameObject.
+     * @see DisplayManager#display(com.gmail.jameshealey1994.breakout.object.GameObject)
+     */
     public void display() {
         displayManager.display(this);
+    }
+
+    /**
+     * Clears the GameObject from display.
+     * @see DisplayManager#display(com.gmail.jameshealey1994.breakout.object.GameObject)
+     */
+    public void clear() {
+        displayManager.clear(this);
     }
 
     /**

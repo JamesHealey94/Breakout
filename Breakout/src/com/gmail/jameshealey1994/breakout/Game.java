@@ -57,7 +57,6 @@ public class Game implements Runnable {
                 
         final int initialBatWidth = 40;
         this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, displayManager, positionManager);
-        positionManager.addGameObject(this.bat);
     }
 
     public void start() {
@@ -72,19 +71,13 @@ public class Game implements Runnable {
             block.display();
         }
         
+        positionManager.addGameObject(this.bat);
         bat.display();
         
         for (Ball ball : getBalls()) {
             ball.start();
         }
         while (hasLivesRemaining()) { }
-
-//            livesRemaining--;
-
-//        // TODO remove - just for testing
-//        for (int i = 0; i < 100000; i++) {
-//            System.out.println(i);
-//        }
     }
 
     public Thread getThread() { // TODO needed?

@@ -22,13 +22,29 @@ import javax.swing.KeyStroke;
  */
 public class GameGUI extends JFrame {
 
+    /**
+     * Width of the Game Panel.
+     */
     private final int width = 400;
+    
+    /**
+     * Height of the Game Panel.
+     */
     private final int height = 400;
 
+    /**
+     * Game using the Game Panel.
+     */
     private Game game;
 
+    /**
+     * JPanel used to display the Game.
+     */
     private final JPanel gamePanel;
 
+    /**
+     * Constructor - Sets up JFrame.
+     */
     GameGUI() {
         this.setTitle("Breakout");
         this.setBackground(Color.LIGHT_GRAY);
@@ -38,12 +54,14 @@ public class GameGUI extends JFrame {
 
         gamePanel = new JPanel(); // TODO should it be double buffered?
         gamePanel.setPreferredSize(new Dimension(width, height)); // TODO replace
-        gamePanel.setVisible(true);
         this.add(gamePanel, BorderLayout.CENTER);
         //this.setResizable(false); TODO fix display issue when resizing.
         this.pack();
     }
 
+    /**
+     * Starts a Breakout game in the Game Panel.
+     */
     public void start() {
         gamePanel.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'),
                 "moveLeft");

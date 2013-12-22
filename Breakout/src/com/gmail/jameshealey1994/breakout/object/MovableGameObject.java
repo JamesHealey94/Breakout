@@ -1,7 +1,7 @@
 package com.gmail.jameshealey1994.breakout.object;
 
-import com.gmail.jameshealey1994.breakout.Lock;
 import com.gmail.jameshealey1994.breakout.DisplayManager;
+import com.gmail.jameshealey1994.breakout.Lock;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -29,13 +29,19 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      */
     private int delay;
 
+    /**
+     * The thread that the MovableGameObject will run on when started.
+     */
     private Thread thread;
 
     /**
-     * If the GameObject is alive and should continue to run.
+     * If the MovableGameObject is alive and should continue to run.
      */
     private boolean alive;
 
+    /**
+     * Manages the position of the MovableGameObject.
+     */
     private final PositionManager positionManager;
 
     /**
@@ -65,6 +71,9 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
         setY(getY() + getStepY());
     }
 
+    /**
+     * Starts the thread of the MovableGameObject.
+     */
     public void start() {
         thread = new Thread(this);
         thread.start();
@@ -86,6 +95,9 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
         positionManager.removeGameObject(this); // TODO change?
     }
 
+    /**
+     * Sleeps for the current delay in milliseconds.
+     */
     private void sleep() {
         try {
             Thread.sleep(delay);
@@ -95,7 +107,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     }
 
     /**
-     * Get the value of alive
+     * Get the value of alive.
      *
      * @return the value of alive
      */
@@ -104,7 +116,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     }
 
     /**
-     * Set the value of alive
+     * Set the value of alive.
      *
      * @param alive new value of alive
      */
@@ -112,12 +124,13 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
         this.alive = alive;
     }
 
+    /**
+     * Gets the thread of the MovableGameObject.
+     *
+     * @return      the thread of the MovableGameObject
+     */
     public Thread getThread() {
         return thread;
-    }
-
-    public void setThread(Thread thread) {
-        this.thread = thread;
     }
 
     /**

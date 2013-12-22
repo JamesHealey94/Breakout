@@ -11,13 +11,26 @@ import javax.swing.JComponent;
  */
 public class DisplayManager {
 
+    /**
+     * JComponent that GameObjects are displayed on.
+     */
     private final JComponent component;
 
+    /**
+     * Constructor - Sets component.
+     * 
+     * @param component     JComponent that GameObjects are displayed on
+     */
     public DisplayManager(JComponent component) {
         this.component = component;
     }
 
-   public void display(GameObject obj) {
+    /**
+     * Displays a GameObject on to the Component.
+     * 
+     * @param obj       GameObject to display
+     */
+    public void display(GameObject obj) {
        final Graphics g = component.getGraphics();
        g.setColor(obj.getColor());
        g.fillRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
@@ -25,7 +38,13 @@ public class DisplayManager {
 //       g.drawRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
    }
    
-   public void clear(GameObject obj) {
+   
+    /**
+     * Clears a GameObject from the Component.
+     * 
+     * @param obj       GameObject to clear
+     */
+    public void clear(GameObject obj) {
        final Graphics g = component.getGraphics();
        g.setColor(component.getBackground());
        g.fillRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());

@@ -24,6 +24,7 @@ public class MainMenuGUI extends JFrame {
      */
     public MainMenuGUI() throws HeadlessException {
         this.setTitle("Breakout - Main Menu");
+        this.setLocationRelativeTo(null);
         this.setBackground(Color.LIGHT_GRAY);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //this.setIconImage(null); // TODO create Icon
@@ -47,6 +48,5 @@ public class MainMenuGUI extends JFrame {
         this.add(buttonPanel);
         this.setVisible(true);
         this.pack();
-
     }
 }

@@ -12,47 +12,59 @@ import java.util.Set;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class PositionManager {
+
+    /**
+     * Set of GameObjects that can be bounced off of.
+     */
     private final Set<GameObject> objects = new HashSet<>();
 
-    public boolean addGameObject(GameObject object) {
-        return objects.add(object);
-    }
-
-    public boolean removeGameObject(GameObject object) {
-        return objects.remove(object);
-    }
-
+    /**
+     * The X coordinate of the right wall.
+     */
     private final int maxX;
 
+    /**
+     * The Y coordinate of the floor.
+     */
     private final int maxY;
 
+    /**
+     * Constructor - Sets max X and Y.
+     * 
+     * @param maxX      X coordinate of the right wall
+     * @param maxY      Y coordinate of the floor
+     */
     public PositionManager(int maxX, int maxY) {
         this.maxX = maxX;
         this.maxY = maxY;
     }
 
-    // Bounce ball off other objects.
-    public void update(MovableGameObject moving) { // TODO bat is a MovableGameObject, this would need to be changed.
+    /**
+     * Move object, bouncing off other objects and walls if necessary.
+     * 
+     * @param moving    the object moving
+     */
+    public void update(MovableGameObject moving) {
         for (GameObject obj : objects) {
             if (!(moving.equals(obj))) {
                 final boolean bounceX = isTouchingX(moving, obj); // TODO test an object inside an object, should position be set as well as direction changed?
                 final boolean bounceY = isTouchingY(moving, obj);
 
-                // TODO solve logic error
+                // TODO solve logic error ?
                 if (bounceX && bounceY) {
                     if (bounceX) {
-                        //System.out.println("x collision");
+                        //System.out.println("x collision"); TODO remove
                         moving.changeDirectionX();
                         if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
-                            MovableGameObject objMoving = (MovableGameObject) obj;
+                            final MovableGameObject objMoving = (MovableGameObject) obj;
                             objMoving.changeDirectionX();
                         }
                     }
                     if (bounceY) {
-                        //System.out.println("y collision");
+                        //System.out.println("y collision"); TODO remove
                         moving.changeDirectionY();
                         if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
-                            MovableGameObject objMoving = (MovableGameObject) obj;
+                            final MovableGameObject objMoving = (MovableGameObject) obj;
                             objMoving.changeDirectionY();
                         }
                     }
@@ -84,40 +96,108 @@ public class PositionManager {
         moving.step();
     }
 
+    /**
+     * Returns if the moving object and the passed object are in the same X coordinates.
+     * 
+     * @param moving    moving object
+     * @param obj       object
+     * @return          if the moving object and the passed object are in the same X coordinates
+     */
     private boolean isTouchingX(MovableGameObject moving, GameObject obj) {
         return ((moving.getX() + moving.getWidth()) >= obj.getX())
                 && ((moving.getX()/* + moving.getWidth()*/) <= (obj.getX() + obj.getWidth()));
     }
 
+    /**
+     * Returns if the moving object and the passed object are in the same Y coordinates.
+     * 
+     * @param moving    moving object
+     * @param obj       object
+     * @return          if the moving object and the passed object are in the same Y coordinates
+     */
     private boolean isTouchingY(MovableGameObject moving, GameObject obj) {
         return ((moving.getY() + moving.getHeight()) >= obj.getY())
                 && ((moving.getY()/* + moving.getHeight()*/) <= (obj.getY() + obj.getHeight()));
     }
 
+    /**
+     * Returns if the moving object is touching the ceiling.
+     * 
+     * @param moving    moving object
+     * @return          if the moving object is touching the ceiling
+     */
     private boolean isTouchingCeiling(MovableGameObject moving) {
         //System.out.println("top            " + moving.getX() + " " + moving.getY());
         return moving.getY() <= 0;
     }
 
+    /**
+     * Returns if the moving object is touching the floor.
+     * 
+     * @param moving    moving object
+     * @return          if the moving object is touching the floor
+     */
     private boolean isTouchingFloor(MovableGameObject moving) {
         //System.out.println("bottom         " + moving.getX() + " " + moving.getY());
         return moving.getY() + moving.getHeight() >= maxY;
     }
 
+    /**
+     * Returns if the moving object is touching the left wall.
+     * 
+     * @param moving    moving object
+     * @return          if the moving object is touching the left wall
+     */
     private boolean isTouchingLeftWall(MovableGameObject moving) {
         //System.out.println("left wall      " + moving.getX() + " " + moving.getY());
         return moving.getX() <= 0;
     }
 
+    /**
+     * Returns if the moving object is touching the right wall.
+     * 
+     * @param moving    moving object
+     * @return          if the moving object is touching the right wall
+     */
     private boolean isTouchingRightWall(MovableGameObject moving) {
         //System.out.println("right wall     " + moving.getX() + " " + moving.getY());
         return moving.getX() + moving.getWidth() >= maxX;
     }
 
+    /**
+     * Adds a GameObject to the objects Set.
+     *
+     * @param object    object to be added to the set
+     * @return          if the object was successfully added
+     */
+    public boolean addGameObject(GameObject object) {
+        return objects.add(object);
+    }
+
+    /**
+     * Removes a GameObject from the objects Set.
+     *
+     * @param object    object to be removed from the set
+     * @return          if the object was successfully removed
+     */
+    public boolean removeGameObject(GameObject object) {
+        return objects.remove(object);
+    }
+
+    /**
+     * Returns the current value of maxX.
+     * 
+     * @return      the current value of maxX
+     */
     public int getMaxX() {
         return maxX;
     }
 
+    /**
+     * Returns the current value of maxY.
+     * 
+     * @return      the current value of maxY
+     */
     public int getMaxY() {
         return maxY;
     }
