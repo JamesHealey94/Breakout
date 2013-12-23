@@ -8,7 +8,7 @@ package com.gmail.jameshealey1994.breakout;
 public class Lock {
     
     /**
-     * Static object to be used as a lock to synchronise threads.
+     * Static object to be used as a LOCK to synchronise threads.
      */
-    public static final Lock lock = new Lock();
+    public static final Lock LOCK = new Lock();
 }

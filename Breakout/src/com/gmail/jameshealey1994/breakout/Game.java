@@ -1,7 +1,7 @@
 package com.gmail.jameshealey1994.breakout;
 
-import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Ball;
+import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Block;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import java.util.Collection;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class Game implements Runnable {
-    
+
     private final PositionManager positionManager;
 
     private Collection<Ball> balls;
-    
+
     private Collection<Block> blocks;
 
     private Bat bat; // TODO several bats once special effects are added.
@@ -28,10 +28,10 @@ public class Game implements Runnable {
     private Thread thread;
 
     private int points = 0;
-   
+
     public Game(DisplayManager displayManager, int maxX, int maxY) {
         this.positionManager = new PositionManager(maxX, maxY);
-        
+
         this.balls = new ArrayList<>();
         this.balls.add(new Ball(1, 1, 10, 20, 70, 10, 10, Color.BLUE, displayManager, positionManager));
         this.balls.add(new Ball(1, 1, 10, 200, 30, 10, 10, Color.GREEN, displayManager, positionManager));
@@ -54,7 +54,7 @@ public class Game implements Runnable {
         this.blocks.add(new Block(310, 150, 10, 40, Color.YELLOW, displayManager));
         this.blocks.add(new Block(240, 150, 10, 30, Color.MAGENTA, displayManager));
         this.blocks.add(new Block(370, 60, 20, 30, Color.PINK, displayManager));
-                
+
         final int initialBatWidth = 40;
         this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, displayManager, positionManager);
     }
@@ -70,17 +70,22 @@ public class Game implements Runnable {
             positionManager.addGameObject(block);
             block.display();
         }
-        
+
         positionManager.addGameObject(this.bat);
         bat.display();
-        
+
         for (Ball ball : getBalls()) {
             ball.start();
         }
         while (hasLivesRemaining()) { }
     }
 
-    public Thread getThread() { // TODO needed?
+    /**
+     * Returns the thread the Game is on.
+     *
+     * @return      the thread the Game is on
+     */
+    public Thread getThread() {
         return thread;
     }
 

@@ -84,7 +84,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     public void run() {
         positionManager.addGameObject(this); // TODO change?
         while (isAlive()) {
-            synchronized (Lock.lock) {
+            synchronized (Lock.LOCK) {
                 clear();
                 move();
                 display();

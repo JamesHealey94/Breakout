@@ -79,13 +79,13 @@ public class GameGUI extends JFrame {
                 final DisplayManager displayManager = new DisplayManager(gamePanel);
                 game = new Game(displayManager, width, height);
 
-                Action moveLeft = new AbstractAction() {
+                final Action moveLeft = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("left"); // TODO remove
-                        Bat bat = game.getBat();
+                        final Bat bat = game.getBat();
 
-                        synchronized (Lock.lock) {
+                        synchronized (Lock.LOCK) {
                             for (int i = 0; i < 10; i++) { // TODO improve
                                 bat.clear();
                                 bat.setX(bat.getX() - 1); // TODO - Fix being able to go off the screen.
@@ -95,13 +95,13 @@ public class GameGUI extends JFrame {
                     }
                 };
 
-                Action moveRight = new AbstractAction() {
+                final Action moveRight = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("right"); // TODO remove
-                        Bat bat = game.getBat();
+                        final Bat bat = game.getBat();
 
-                        synchronized (Lock.lock) {
+                        synchronized (Lock.LOCK) {
                             for (int i = 0; i < 10; i++) {
                                 bat.clear();
                                 bat.setX(bat.getX() + 1); // TODO - Fix being able to go off the screen.
