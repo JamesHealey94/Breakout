@@ -26,7 +26,7 @@ public class GameGUI extends JFrame {
      * Width of the Game Panel.
      */
     private final int width = 400;
-    
+
     /**
      * Height of the Game Panel.
      */
@@ -86,12 +86,23 @@ public class GameGUI extends JFrame {
                         final Bat bat = game.getBat();
 
                         synchronized (Lock.LOCK) {
-                            for (int i = 0; i < 10; i++) { // TODO improve
+                            for (int i = 0; i < 10; i++) {
                                 bat.clear();
-                                bat.setX(bat.getX() - 1); // TODO - Fix being able to go off the screen.
+                                final int newPosX = bat.getX() - 1;
+                                if (isValidMove(newPosX, bat)) {
+                                    bat.setX(newPosX);
+                                }
                                 bat.display();
                             }
                         }
+                    }
+
+                    /**
+                     * Returns if the bat's move will be valid.
+                     * Invalid if the new position will make the bat go off the screen.
+                     */
+                    public boolean isValidMove(final int newPosX, final Bat bat) { // TODO improve - move to Bat class?
+                        return (0 < newPosX) && (newPosX + bat.getWidth() < bat.getPositionManager().getMaxX());
                     }
                 };
 
@@ -104,10 +115,21 @@ public class GameGUI extends JFrame {
                         synchronized (Lock.LOCK) {
                             for (int i = 0; i < 10; i++) {
                                 bat.clear();
-                                bat.setX(bat.getX() + 1); // TODO - Fix being able to go off the screen.
+                                final int newPosX = bat.getX() + 1;
+                                if (isValidMove(newPosX, bat)) {
+                                    bat.setX(newPosX);
+                                }
                                 bat.display();
                             }
                         }
+                    }
+
+                    /**
+                     * Returns if the bat's move will be valid.
+                     * Invalid if the new position will make the bat go off the screen.
+                     */
+                    public boolean isValidMove(final int newPosX, final Bat bat) {
+                        return (0 < newPosX) && (newPosX + bat.getWidth() < bat.getPositionManager().getMaxX());
                     }
                 };
 

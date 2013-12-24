@@ -40,19 +40,13 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     private boolean alive;
 
     /**
-     * Manages the position of the MovableGameObject.
-     */
-    private final PositionManager positionManager;
-
-    /**
      * Constructs a new MovableGameObject using the passed values.
      */
     public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
-        super(x, y, height, width, color, displayManager);
+        super(x, y, height, width, color, displayManager, positionManager);
         this.stepX = stepX;
         this.stepY = stepY;
         this.delay = delay;
-        this.positionManager = positionManager;
     }
 
     /**
@@ -60,7 +54,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      * e.g. hitting a wall or object would cause a change in direction.
      */
     public void move() {
-        positionManager.update(this);
+        getPositionManager().update(this);
     }
 
     /**
@@ -82,7 +76,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     @Override
     public void run() {
-        positionManager.addGameObject(this); // TODO change?
+        getPositionManager().addGameObject(this); // TODO change?
         while (isAlive()) {
             synchronized (Lock.LOCK) {
                 clear();
@@ -92,7 +86,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
             sleep();
         }
         //System.out.println("dead"); // TODO remove
-        positionManager.removeGameObject(this); // TODO change?
+        getPositionManager().removeGameObject(this); // TODO change?
     }
 
     /**

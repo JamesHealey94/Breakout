@@ -1,6 +1,7 @@
 package com.gmail.jameshealey1994.breakout.object;
 
 import com.gmail.jameshealey1994.breakout.DisplayManager;
+import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 
 /**
@@ -41,6 +42,11 @@ public abstract class GameObject {
     private final DisplayManager displayManager;
 
     /**
+     * Manages the position of the MovableGameObject.
+     */
+    private final PositionManager positionManager;
+
+    /**
      * Constructs a new GameObject using the passed values.
      *
      * @param x                 leftmost X coordinate of the GameObject
@@ -50,13 +56,14 @@ public abstract class GameObject {
      * @param color             color of the GameObject
      * @param displayManager    displayManager of the GameObject
      */
-    public GameObject(int x, int y, int height, int width, Color color, DisplayManager displayManager) {
+    public GameObject(int x, int y, int height, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.color = color;
         this.displayManager = displayManager;
+        this.positionManager = positionManager;
     }
 
     /**
@@ -163,5 +170,23 @@ public abstract class GameObject {
      */
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    /**
+     * Returns the GameObject's DisplayManager
+     *
+     * @return  the DisplayManager of the GameObject
+     */
+    public DisplayManager getDisplayManager() {
+        return displayManager;
+    }
+
+    /**
+     * Returns the GameObject's PositionManager
+     *
+     * @return  the PositionManager of the GameObject
+     */
+    public PositionManager getPositionManager() {
+        return positionManager;
     }
 }

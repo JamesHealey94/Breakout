@@ -1,6 +1,7 @@
 package com.gmail.jameshealey1994.breakout.object;
 
 import com.gmail.jameshealey1994.breakout.DisplayManager;
+import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 
 /**
@@ -10,7 +11,7 @@ import java.awt.Color;
  */
 public class Block extends GameObject {
 
-    public Block(int x, int y, int height, int width, Color color, DisplayManager displayManager) {
-        super(x, y, height, width, color, displayManager);
+    public Block(int x, int y, int height, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
+        super(x, y, height, width, color, displayManager, positionManager);
     }
 }

@@ -22,6 +22,6 @@ public class Bat extends GameObject {
     public static final int BAT_HEIGHT = 10;
 
     public Bat(int x, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
-        super(x, positionManager.getMaxY() - BAT_Y, BAT_HEIGHT, width, color, displayManager);
+        super(x, positionManager.getMaxY() - BAT_Y, BAT_HEIGHT, width, color, displayManager, positionManager);
     }
 }
