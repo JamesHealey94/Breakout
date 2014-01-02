@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout;
 
+import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Block;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import com.gmail.jameshealey1994.breakout.object.MovableGameObject;
@@ -30,7 +31,7 @@ public class PositionManager {
 
     /**
      * Constructor - Sets max X and Y.
-     * 
+     *
      * @param maxX      X coordinate of the right wall
      * @param maxY      Y coordinate of the floor
      */
@@ -41,7 +42,7 @@ public class PositionManager {
 
     /**
      * Move object, bouncing off other objects and walls if necessary.
-     * 
+     *
      * @param moving    the object moving
      */
     public void update(MovableGameObject moving) {
@@ -50,28 +51,38 @@ public class PositionManager {
                 final boolean bounceX = isTouchingX(moving, obj); // TODO test an object inside an object, should position be set as well as direction changed?
                 final boolean bounceY = isTouchingY(moving, obj);
 
-                // TODO solve logic error ?
-                if (bounceX && bounceY) {
-                    if (bounceX) {
-                        //System.out.println("x collision"); TODO remove
+                if (bounceX && bounceY) { // TODO improve gameobject.???() and override
+//                    moving.changeDirectionX();
+//                    moving.changeDirectionY();
+                    if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
                         moving.changeDirectionX();
-                        if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
-                            final MovableGameObject objMoving = (MovableGameObject) obj;
-                            objMoving.changeDirectionX();
-                        }
-                    }
-                    if (bounceY) {
-                        //System.out.println("y collision"); TODO remove
-                        moving.changeDirectionY();
-                        if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
-                            final MovableGameObject objMoving = (MovableGameObject) obj;
-                            objMoving.changeDirectionY();
-                        }
+                        //moving.changeDirectionY();
+                        final MovableGameObject objMoving = (MovableGameObject) obj;
+                        objMoving.changeDirectionX();
+                        //objMoving.changeDirectionY(); TODO test further
                     }
                     if (obj instanceof Block) {
+                        moving.changeDirectionX();
+                        moving.changeDirectionY();
                         obj.clear();
                         this.removeGameObject(obj);
                         // TODO increase points
+                    }
+                    if (obj instanceof Bat) {
+                        moving.changeDirectionY();
+                        final int movingMiddleX = moving.getX() + (moving.getWidth() / 2);
+                        final int batMiddleThirdLeftX = obj.getX() + (obj.getWidth() / 3);
+                        final int batRightThirdLeftX = obj.getX() + (2 * (obj.getWidth() / 3));
+                        if (movingMiddleX < batMiddleThirdLeftX) { // if ball hits left third of the bat
+                            if (moving.getStepX() > 0) { // set direction to left
+                                moving.changeDirectionX();
+                            }
+                        }
+                        if (batRightThirdLeftX < movingMiddleX) { // if ball hits right third of the bat
+                            if (moving.getStepX() < 0) { // set direction to right
+                                moving.changeDirectionX();
+                            }
+                        }
                     }
                     break; // TODO check
                 }
@@ -98,7 +109,7 @@ public class PositionManager {
 
     /**
      * Returns if the moving object and the passed object are in the same X coordinates.
-     * 
+     *
      * @param moving    moving object
      * @param obj       object
      * @return          if the moving object and the passed object are in the same X coordinates
@@ -110,7 +121,7 @@ public class PositionManager {
 
     /**
      * Returns if the moving object and the passed object are in the same Y coordinates.
-     * 
+     *
      * @param moving    moving object
      * @param obj       object
      * @return          if the moving object and the passed object are in the same Y coordinates
@@ -122,7 +133,7 @@ public class PositionManager {
 
     /**
      * Returns if the moving object is touching the ceiling.
-     * 
+     *
      * @param moving    moving object
      * @return          if the moving object is touching the ceiling
      */
@@ -133,7 +144,7 @@ public class PositionManager {
 
     /**
      * Returns if the moving object is touching the floor.
-     * 
+     *
      * @param moving    moving object
      * @return          if the moving object is touching the floor
      */
@@ -144,7 +155,7 @@ public class PositionManager {
 
     /**
      * Returns if the moving object is touching the left wall.
-     * 
+     *
      * @param moving    moving object
      * @return          if the moving object is touching the left wall
      */
@@ -155,7 +166,7 @@ public class PositionManager {
 
     /**
      * Returns if the moving object is touching the right wall.
-     * 
+     *
      * @param moving    moving object
      * @return          if the moving object is touching the right wall
      */
@@ -186,7 +197,7 @@ public class PositionManager {
 
     /**
      * Returns the current value of maxX.
-     * 
+     *
      * @return      the current value of maxX
      */
     public int getMaxX() {
@@ -195,7 +206,7 @@ public class PositionManager {
 
     /**
      * Returns the current value of maxY.
-     * 
+     *
      * @return      the current value of maxY
      */
     public int getMaxY() {
