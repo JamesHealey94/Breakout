@@ -32,11 +32,13 @@ public class MainMenuGUI extends JFrame {
 
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         final JButton playButton = new JButton("Play");
+
+        final JFrame menu = this;
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 final GameGUI gameGUI = new GameGUI();
-                //gameGUI.setLocationRelativeTo(this); TODO find a nice way to set the GameGUI relative to the Main Menu
+                gameGUI.setLocationRelativeTo(menu);
                 gameGUI.setVisible(true);
                 gameGUI.start();
             }
