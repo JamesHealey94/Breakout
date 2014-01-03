@@ -18,7 +18,7 @@ public class DisplayManager {
 
     /**
      * Constructor - Sets component.
-     * 
+     *
      * @param component     JComponent that GameObjects are displayed on
      */
     public DisplayManager(JComponent component) {
@@ -27,7 +27,7 @@ public class DisplayManager {
 
     /**
      * Displays a GameObject on to the Component.
-     * 
+     *
      * @param obj       GameObject to display
      */
     public void display(GameObject obj) {
@@ -37,11 +37,10 @@ public class DisplayManager {
 //       g.setColor(Color.BLACK);
 //       g.drawRect(obj.getX(), /*component.getHeight() - */obj.getY(), obj.getWidth(), obj.getHeight());
    }
-   
-   
+
     /**
      * Clears a GameObject from the Component.
-     * 
+     *
      * @param obj       GameObject to clear
      */
     public void clear(GameObject obj) {

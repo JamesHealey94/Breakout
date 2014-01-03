@@ -55,7 +55,7 @@ public class Game implements Runnable {
         this.blocks.add(new Block(240, 150, 10, 30, Color.MAGENTA, displayManager, positionManager));
         this.blocks.add(new Block(370, 60, 20, 30, Color.PINK, displayManager, positionManager));
 
-        final int initialBatWidth = 40;
+        final int initialBatWidth = 90;
         this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, displayManager, positionManager);
     }
 

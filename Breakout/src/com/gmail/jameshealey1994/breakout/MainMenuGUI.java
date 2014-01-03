@@ -48,7 +48,6 @@ public class MainMenuGUI extends JFrame {
         buttonPanel.add(playButton);
         buttonPanel.setVisible(true);
         this.add(buttonPanel);
-        this.setVisible(true);
         this.pack();
     }
 }
