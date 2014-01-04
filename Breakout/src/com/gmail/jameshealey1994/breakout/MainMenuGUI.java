@@ -48,9 +48,6 @@ public class MainMenuGUI extends JFrame {
 
     /**
      * Creates and shows the game gui.
-     * Runs on the Event Dispatch Thread to prevent possible deadlock.
-     *
-     * @see http://docs.oracle.com/javase/tutorial/uiswing/painting/step1.html
      */
     private void createAndShowGameGUI() {
         final GameGUI gameGUI = new GameGUI();
