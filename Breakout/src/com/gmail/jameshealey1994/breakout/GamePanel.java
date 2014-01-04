@@ -47,20 +47,12 @@ public class GamePanel extends JPanel implements Runnable {
                     for (int i = 0; i < 10; i++) {
                         bat.clear();
                         final int newPosX = bat.getX() - 1;
-                        if (isValidMove(newPosX, bat)) {
+                        if (bat.isValidMove(newPosX)) {
                             bat.setX(newPosX);
                         }
                         bat.display();
                     }
                 }
-            }
-
-            /**
-             * Returns if the bat's move will be valid.
-             * Invalid if the new position will make the bat go off the screen.
-             */
-            public boolean isValidMove(final int newPosX, final Bat bat) { // TODO improve - move to Bat class?
-                return (0 < newPosX) && (newPosX + bat.getWidth() < bat.getPositionManager().getMaxX());
             }
         };
 
@@ -74,20 +66,12 @@ public class GamePanel extends JPanel implements Runnable {
                     for (int i = 0; i < 10; i++) {
                         bat.clear();
                         final int newPosX = bat.getX() + 1;
-                        if (isValidMove(newPosX, bat)) {
+                        if (bat.isValidMove(newPosX)) {
                             bat.setX(newPosX);
                         }
                         bat.display();
                     }
                 }
-            }
-
-            /**
-             * Returns if the bat's move will be valid.
-             * Invalid if the new position will make the bat go off the screen.
-             */
-            public boolean isValidMove(final int newPosX, final Bat bat) {
-                return (0 < newPosX) && (newPosX + bat.getWidth() < bat.getPositionManager().getMaxX());
             }
         };
 
