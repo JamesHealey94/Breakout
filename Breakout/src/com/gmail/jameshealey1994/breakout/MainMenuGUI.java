@@ -32,15 +32,10 @@ public class MainMenuGUI extends JFrame {
 
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         final JButton playButton = new JButton("Play");
-
-        final JFrame menu = this;
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final GameGUI gameGUI = new GameGUI();
-                gameGUI.setLocationRelativeTo(menu);
-                gameGUI.setVisible(true);
-                gameGUI.start();
+                createAndShowGameGUI();
             }
         });
 
@@ -49,5 +44,18 @@ public class MainMenuGUI extends JFrame {
         buttonPanel.setVisible(true);
         this.add(buttonPanel);
         this.pack();
+    }
+
+    /**
+     * Creates and shows the game gui.
+     * Runs on the Event Dispatch Thread to prevent possible deadlock.
+     *
+     * @see http://docs.oracle.com/javase/tutorial/uiswing/painting/step1.html
+     */
+    private void createAndShowGameGUI() {
+        final GameGUI gameGUI = new GameGUI();
+        gameGUI.setLocationRelativeTo(this);
+        gameGUI.setVisible(true);
+        gameGUI.start();
     }
 }
