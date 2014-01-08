@@ -3,9 +3,7 @@ package com.gmail.jameshealey1994.breakout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
 import javax.swing.JFrame;
-import javax.swing.KeyStroke;
 
 /**
  * GUI for Breakout Game.
