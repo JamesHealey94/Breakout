@@ -1,6 +1,8 @@
 package com.gmail.jameshealey1994.breakout;
 
 import com.gmail.jameshealey1994.breakout.object.Bat;
+import com.gmail.jameshealey1994.breakout.object.GameObject;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"),
                 "moveRight");
 
-        final DisplayManager displayManager = new DisplayManager(this);
-        game = new Game(displayManager, this.getWidth(), this.getHeight());
+        game = new Game(this);
 
         final Action moveLeft = new AbstractAction() {
             @Override
@@ -85,5 +86,14 @@ public class GamePanel extends JPanel implements Runnable {
             Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "Points: " + game.getPoints());
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        for (GameObject gameObject : game.getPositionManager().getGameObjects()) {
+            gameObject.paint(g);
+        }
     }
 }

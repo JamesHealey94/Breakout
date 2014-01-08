@@ -6,6 +6,7 @@ import com.gmail.jameshealey1994.breakout.object.Block;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Represents a Game of Breakout.
@@ -29,34 +30,34 @@ public class Game implements Runnable {
 
     private int points = 0;
 
-    public Game(DisplayManager displayManager, int maxX, int maxY) {
-        this.positionManager = new PositionManager(maxX, maxY);
+    public Game(GamePanel gamePanel) {
+        this.positionManager = new PositionManager(gamePanel.getWidth(), gamePanel.getHeight());
 
         this.balls = new ArrayList<>();
-        this.balls.add(new Ball(1, 1, 10, 20, 70, 10, 10, Color.BLUE, displayManager, positionManager));
-        this.balls.add(new Ball(1, 1, 10, 200, 30, 10, 10, Color.GREEN, displayManager, positionManager));
+        this.balls.add(new Ball(1, 1, 10, 20, 70, 10, 10, Color.BLUE, gamePanel, positionManager));
+        this.balls.add(new Ball(1, 1, 10, 200, 30, 10, 10, Color.GREEN, gamePanel, positionManager));
 
         this.blocks = new ArrayList<>();
-        this.blocks.add(new Block(40, 30, 10, 30, Color.RED, displayManager, positionManager));
-        this.blocks.add(new Block(70, 30, 10, 30, Color.CYAN, displayManager, positionManager));
-        this.blocks.add(new Block(10, 30, 10, 30, Color.ORANGE, displayManager, positionManager));
-        this.blocks.add(new Block(10, 50, 10, 30, Color.YELLOW, displayManager, positionManager));
-        this.blocks.add(new Block(40, 50, 10, 30, Color.MAGENTA, displayManager, positionManager));
-        this.blocks.add(new Block(70, 50, 10, 30, Color.PINK, displayManager, positionManager));
-        this.blocks.add(new Block(100, 30, 10, 30, Color.RED, displayManager, positionManager));
-        this.blocks.add(new Block(170, 30, 10, 30, Color.CYAN, displayManager, positionManager));
-        this.blocks.add(new Block(110, 70, 10, 30, Color.ORANGE, displayManager, positionManager));
-        this.blocks.add(new Block(110, 150, 10, 30, Color.YELLOW, displayManager, positionManager));
-        this.blocks.add(new Block(140, 150, 10, 30, Color.MAGENTA, displayManager, positionManager));
-        this.blocks.add(new Block(170, 50, 10, 30, Color.PINK, displayManager, positionManager));
-        this.blocks.add(new Block(370, 30, 10, 30, Color.CYAN, displayManager, positionManager));
-        this.blocks.add(new Block(210, 70, 10, 30, Color.ORANGE, displayManager, positionManager));
-        this.blocks.add(new Block(310, 150, 10, 40, Color.YELLOW, displayManager, positionManager));
-        this.blocks.add(new Block(240, 150, 10, 30, Color.MAGENTA, displayManager, positionManager));
-        this.blocks.add(new Block(370, 60, 20, 30, Color.PINK, displayManager, positionManager));
+        this.blocks.add(new Block(40, 30, 10, 30, Color.RED, gamePanel, positionManager)); // TODO do gameobjects need a position manager?
+        this.blocks.add(new Block(70, 30, 10, 30, Color.CYAN, gamePanel, positionManager));
+        this.blocks.add(new Block(10, 30, 10, 30, Color.ORANGE, gamePanel, positionManager));
+        this.blocks.add(new Block(10, 50, 10, 30, Color.YELLOW, gamePanel, positionManager));
+        this.blocks.add(new Block(40, 50, 10, 30, Color.MAGENTA, gamePanel, positionManager));
+        this.blocks.add(new Block(70, 50, 10, 30, Color.PINK, gamePanel, positionManager));
+        this.blocks.add(new Block(100, 30, 10, 30, Color.RED, gamePanel, positionManager));
+        this.blocks.add(new Block(170, 30, 10, 30, Color.CYAN, gamePanel, positionManager));
+        this.blocks.add(new Block(110, 70, 10, 30, Color.ORANGE, gamePanel, positionManager));
+        this.blocks.add(new Block(110, 150, 10, 30, Color.YELLOW, gamePanel, positionManager));
+        this.blocks.add(new Block(140, 150, 10, 30, Color.MAGENTA, gamePanel, positionManager));
+        this.blocks.add(new Block(170, 50, 10, 30, Color.PINK, gamePanel, positionManager));
+        this.blocks.add(new Block(370, 30, 10, 30, Color.CYAN, gamePanel, positionManager));
+        this.blocks.add(new Block(210, 70, 10, 30, Color.ORANGE, gamePanel, positionManager));
+        this.blocks.add(new Block(310, 150, 10, 40, Color.YELLOW, gamePanel, positionManager));
+        this.blocks.add(new Block(240, 150, 10, 30, Color.MAGENTA, gamePanel, positionManager));
+        this.blocks.add(new Block(370, 60, 20, 30, Color.PINK, gamePanel, positionManager));
 
         final int initialBatWidth = 90;
-        this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, displayManager, positionManager);
+        this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, gamePanel, positionManager);
     }
 
     public void start() {
@@ -68,12 +69,12 @@ public class Game implements Runnable {
     public void run() {
         for (Block block : getBlocks()) {
             positionManager.addGameObject(block);
-            block.display();
+            //block.display();
         }
 
         positionManager.addGameObject(this.bat);
         bat.display();
-
+        
         for (Ball ball : getBalls()) {
             ball.start();
         }
@@ -126,7 +127,7 @@ public class Game implements Runnable {
      * @return the value of balls
      */
     public Collection<Ball> getBalls() {
-        return balls;
+        return Collections.unmodifiableCollection(balls);
     }
 
     /**
@@ -166,10 +167,14 @@ public class Game implements Runnable {
     }
 
     public Collection<Block> getBlocks() {
-        return blocks;
+        return Collections.unmodifiableCollection(blocks);
     }
 
     public void setBlocks(Collection<Block> blocks) {
         this.blocks = blocks;
+    }
+
+    public PositionManager getPositionManager() {
+        return positionManager;
     }
 }

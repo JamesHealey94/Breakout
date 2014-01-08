@@ -1,8 +1,9 @@
 package com.gmail.jameshealey1994.breakout.object;
 
-import com.gmail.jameshealey1994.breakout.DisplayManager;
+import com.gmail.jameshealey1994.breakout.GamePanel;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  * Abstract class representing an object in the game.
@@ -36,11 +37,16 @@ public abstract class GameObject {
      */
     private Color color;
 
+//    /**
+//     * Manages how the GameObject is displayed.
+//     */
+//    private final DisplayManager displayManager;
+
     /**
      * Manages how the GameObject is displayed.
      */
-    private final DisplayManager displayManager;
-
+    private final GamePanel gamePanel;
+    
     /**
      * Manages the position of the MovableGameObject.
      */
@@ -54,34 +60,39 @@ public abstract class GameObject {
      * @param height            height of the GameObject
      * @param width             width of the GameObject
      * @param color             color of the GameObject
-     * @param displayManager    displayManager of the GameObject
+     * @param gamePanel         gamePanel of the GameObject
      */
-    public GameObject(int x, int y, int height, int width, Color color, DisplayManager displayManager, PositionManager positionManager) {
+    public GameObject(int x, int y, int height, int width, Color color, GamePanel gamePanel, PositionManager positionManager) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.color = color;
-        this.displayManager = displayManager;
+        this.gamePanel = gamePanel;
         this.positionManager = positionManager;
     }
 
-    /**
-     * Displays the GameObject.
-     * @see DisplayManager#display(com.gmail.jameshealey1994.breakout.object.GameObject)
-     */
     public void display() {
-        displayManager.display(this);
+        gamePanel.repaint();
+    }
+    
+    /**
+     * Paints the GameObject onto the passed Graphics.
+     * 
+     * @param g     Graphics to paint the GameObject on to
+     */
+    public void paint(Graphics g) {
+        g.setColor(getColor());
+        g.fillRect(getX(), getY(), getWidth(), getHeight());
     }
 
     /**
      * Clears the GameObject from display.
-     * @see DisplayManager#display(com.gmail.jameshealey1994.breakout.object.GameObject)
      */
     public void clear() {
-        displayManager.clear(this);
+        gamePanel.repaint(); // TODO change / improve
     }
-
+    
     /**
      * Get the value of x.
      *
@@ -173,12 +184,12 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the GameObject's DisplayManager
+     * Returns the GameObject's GamePanel
      *
-     * @return  the DisplayManager of the GameObject
+     * @return  the GamePanel of the GameObject
      */
-    public DisplayManager getDisplayManager() {
-        return displayManager;
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 
     /**

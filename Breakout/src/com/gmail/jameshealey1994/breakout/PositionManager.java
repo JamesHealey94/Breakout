@@ -4,6 +4,7 @@ import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Block;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import com.gmail.jameshealey1994.breakout.object.MovableGameObject;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,7 +71,7 @@ public class PositionManager {
                     }
                     if (obj instanceof Bat) {
                         moving.changeDirectionY();
-                        final int movingMiddleX = moving.getX() + (moving.getWidth() / 2);
+                        final int movingMiddleX = moving.getX() + (moving.getWidth() / 2); // TODO improve
                         final int batMiddleThirdLeftX = obj.getX() + (obj.getWidth() / 3);
                         final int batRightThirdLeftX = obj.getX() + (2 * (obj.getWidth() / 3));
                         if (movingMiddleX < batMiddleThirdLeftX) { // if ball hits left third of the bat
@@ -106,7 +107,7 @@ public class PositionManager {
 
         moving.step();
     }
-
+    
     /**
      * Returns if the moving object and the passed object are in the same X coordinates.
      *
@@ -211,5 +212,16 @@ public class PositionManager {
      */
     public int getMaxY() {
         return maxY;
+    }
+
+    /**
+     * Returns the GameObjects stored.
+     * This set of GameObjects will change when a block is added or removed.
+     * For example, when a ball hits a block, and the block is removed.
+     * 
+     * @return      the GameObjects stored
+     */
+    public Set<GameObject> getGameObjects() {
+        return Collections.unmodifiableSet(objects);
     }
 }
