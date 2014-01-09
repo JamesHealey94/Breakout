@@ -35,4 +35,23 @@ public class Bat extends GameObject {
     public boolean isValidMove(final int newPosX) {
         return (0 < newPosX) && (newPosX + this.getWidth() < this.getPositionManager().getMaxX());
     }
+
+    @Override
+    public void onHit(MovableGameObject moving) {
+        // TODO perhaps increase speed (decrease delay) every time the ball hits the bat.
+        moving.changeDirectionY();
+        final int movingMiddleX = moving.getX() + (moving.getWidth() / 2); // TODO improve
+        final int batMiddleThirdLeftX = this.getX() + (this.getWidth() / 3);
+        final int batRightThirdLeftX = this.getX() + (2 * (this.getWidth() / 3));
+        if (movingMiddleX < batMiddleThirdLeftX) { // if ball hits left third of the bat...
+            if (moving.getStepX() > 0) { // ...set direction to left
+                moving.changeDirectionX();
+            }
+        }
+        if (batRightThirdLeftX < movingMiddleX) { // if ball hits right third of the bat...
+            if (moving.getStepX() < 0) { // ...set direction to right
+                moving.changeDirectionX();
+            }
+        }
+    }
 }

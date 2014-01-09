@@ -1,7 +1,5 @@
 package com.gmail.jameshealey1994.breakout;
 
-import com.gmail.jameshealey1994.breakout.object.Bat;
-import com.gmail.jameshealey1994.breakout.object.Block;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import com.gmail.jameshealey1994.breakout.object.MovableGameObject;
 import java.util.Collections;
@@ -52,40 +50,9 @@ public class PositionManager {
                 final boolean bounceX = isTouchingX(moving, obj); // TODO test an object inside an object, should position be set as well as direction changed?
                 final boolean bounceY = isTouchingY(moving, obj);
 
-                if (bounceX && bounceY) { // TODO improve gameobject.???() and override
-//                    moving.changeDirectionX();
-//                    moving.changeDirectionY();
-                    if (obj instanceof MovableGameObject) { // TODO change to a .beenHit() method thats overriden or an event perhaps.
-                        moving.changeDirectionX();
-                        //moving.changeDirectionY();
-                        final MovableGameObject objMoving = (MovableGameObject) obj;
-                        objMoving.changeDirectionX();
-                        //objMoving.changeDirectionY(); TODO test further
-                    }
-                    if (obj instanceof Block) {
-                        moving.changeDirectionX();
-                        moving.changeDirectionY();
-                        obj.clear();
-                        this.removeGameObject(obj);
-                        // TODO increase points
-                    }
-                    if (obj instanceof Bat) {
-                        moving.changeDirectionY();
-                        final int movingMiddleX = moving.getX() + (moving.getWidth() / 2); // TODO improve
-                        final int batMiddleThirdLeftX = obj.getX() + (obj.getWidth() / 3);
-                        final int batRightThirdLeftX = obj.getX() + (2 * (obj.getWidth() / 3));
-                        if (movingMiddleX < batMiddleThirdLeftX) { // if ball hits left third of the bat
-                            if (moving.getStepX() > 0) { // set direction to left
-                                moving.changeDirectionX();
-                            }
-                        }
-                        if (batRightThirdLeftX < movingMiddleX) { // if ball hits right third of the bat
-                            if (moving.getStepX() < 0) { // set direction to right
-                                moving.changeDirectionX();
-                            }
-                        }
-                    }
-                    break; // TODO check
+                if (bounceX && bounceY) {
+                    obj.onHit(moving);
+                    break;
                 }
             }
         }
@@ -107,7 +74,7 @@ public class PositionManager {
 
         moving.step();
     }
-    
+
     /**
      * Returns if the moving object and the passed object are in the same X coordinates.
      *
@@ -218,7 +185,7 @@ public class PositionManager {
      * Returns the GameObjects stored.
      * This set of GameObjects will change when a block is added or removed.
      * For example, when a ball hits a block, and the block is removed.
-     * 
+     *
      * @return      the GameObjects stored
      */
     public Set<GameObject> getGameObjects() {

@@ -46,7 +46,7 @@ public abstract class GameObject {
      * Manages how the GameObject is displayed.
      */
     private final GamePanel gamePanel;
-    
+
     /**
      * Manages the position of the MovableGameObject.
      */
@@ -75,10 +75,10 @@ public abstract class GameObject {
     public void display() {
         gamePanel.repaint();
     }
-    
+
     /**
      * Paints the GameObject onto the passed Graphics.
-     * 
+     *
      * @param g     Graphics to paint the GameObject on to
      */
     public void paint(Graphics g) {
@@ -92,7 +92,7 @@ public abstract class GameObject {
     public void clear() {
         gamePanel.repaint(); // TODO change / improve
     }
-    
+
     /**
      * Get the value of x.
      *
@@ -184,7 +184,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the GameObject's GamePanel
+     * Returns the GameObject's GamePanel.
      *
      * @return  the GamePanel of the GameObject
      */
@@ -193,11 +193,13 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the GameObject's PositionManager
+     * Returns the GameObject's PositionManager.
      *
      * @return  the PositionManager of the GameObject
      */
     public PositionManager getPositionManager() {
         return positionManager;
     }
+
+    abstract public void onHit(MovableGameObject moving);
 }
