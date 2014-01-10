@@ -72,6 +72,9 @@ public abstract class GameObject {
         this.positionManager = positionManager;
     }
 
+    /**
+     * Displays the GameObject to the object's gamePanel.
+     */
     public void display() {
         gamePanel.repaint();
     }
@@ -201,5 +204,10 @@ public abstract class GameObject {
         return positionManager;
     }
 
+    /**
+     * Called when the object has been hit by a MovableGameObject.
+     *
+     * @param moving    MovableGameObject that hit this object
+     */
     abstract public void onHit(MovableGameObject moving);
 }

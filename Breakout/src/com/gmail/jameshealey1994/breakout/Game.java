@@ -16,18 +16,39 @@ import java.util.Collections;
  */
 public class Game implements Runnable {
 
+    /**
+     * The PositionManager of the object.
+     */
     private final PositionManager positionManager;
 
+    /**
+     * The current balls in the game.
+     */
     private Collection<Ball> balls;
 
+    /**
+     * The current blocks in the game.
+     */
     private Collection<Block> blocks;
 
+    /**
+     * The current Bat in the game.
+     */
     private Bat bat; // TODO several bats once special effects are added.
 
+    /**
+     * The current lives remaining.
+     */
     private int livesRemaining = 3;
 
+    /**
+     * The thread the game runs on.
+     */
     private Thread thread;
 
+    /**
+     * The points the player of the game has scored.
+     */
     private int points = 0;
 
     public Game(GamePanel gamePanel) {
@@ -60,6 +81,9 @@ public class Game implements Runnable {
         this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, gamePanel, positionManager);
     }
 
+    /**
+     * Starts the game's thread.
+     */
     public void start() {
         thread = new Thread(this);
         thread.start();
@@ -74,7 +98,7 @@ public class Game implements Runnable {
 
         positionManager.addGameObject(this.bat);
         bat.display();
-        
+
         for (Ball ball : getBalls()) {
             ball.start();
         }
@@ -166,14 +190,29 @@ public class Game implements Runnable {
         return livesRemaining > 0;
     }
 
+    /**
+     * Returns the object's blocks as an unmodifiable collection.
+     *
+     * @return  the object's blocks as an unmodifiable collection
+     */
     public Collection<Block> getBlocks() {
         return Collections.unmodifiableCollection(blocks);
     }
 
+    /**
+     * Sets the object's blocks to a passed Collection of Blocks.
+     *
+     * @param blocks    new blocks value
+     */
     public void setBlocks(Collection<Block> blocks) {
         this.blocks = blocks;
     }
 
+    /**
+     * Returns the PositionManager of the object.
+     *
+     * @return  the PositionManager of the object
+     */
     public PositionManager getPositionManager() {
         return positionManager;
     }
