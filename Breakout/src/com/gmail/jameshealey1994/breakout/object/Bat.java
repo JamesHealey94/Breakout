@@ -1,8 +1,8 @@
 package com.gmail.jameshealey1994.breakout.object;
 
-import com.gmail.jameshealey1994.breakout.GamePanel;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
+import javax.swing.JComponent;
 
 /**
  * Class representing a Movable Bat Game Object.
@@ -21,7 +21,12 @@ public class Bat extends GameObject {
      */
     public static final int BAT_HEIGHT = 10;
 
-    public Bat(int x, int width, Color color, GamePanel gamePanel, PositionManager positionManager) {
+    /**
+     * The initial width of bats (normally).
+     */
+    public static final int INITIAL_WIDTH = 90;
+
+    public Bat(int x, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, positionManager.getMaxY() - BAT_Y, BAT_HEIGHT, width, color, gamePanel, positionManager);
     }
 
@@ -53,5 +58,14 @@ public class Bat extends GameObject {
                 moving.changeDirectionX();
             }
         }
+    }
+
+    /**
+     * Returns the middle X coordinate of the Bat.
+     *
+     * @return  the middle X coordinate of the Bat
+     */
+    public int getMiddleX() {
+        return getX() + getWidth() / 2;
     }
 }

@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComponent;
 
 /**
  * Represents a Game of Breakout.
@@ -34,7 +37,7 @@ public class Game implements Runnable {
     /**
      * The current Bat in the game.
      */
-    private Bat bat; // TODO several bats once special effects are added.
+    private Bat bat;
 
     /**
      * The current lives remaining.
@@ -47,12 +50,19 @@ public class Game implements Runnable {
     private Thread thread;
 
     /**
+     * The JComponent the Game is being played on.
+     */
+    private JComponent gamePanel;
+
+    /**
      * The points the player of the game has scored.
      */
     private int points = 0;
 
     public Game(GamePanel gamePanel) {
-        this.positionManager = new PositionManager(gamePanel.getWidth(), gamePanel.getHeight());
+        this.gamePanel = gamePanel;
+
+        this.positionManager = new PositionManager(this, gamePanel.getWidth(), gamePanel.getHeight());
 
         this.balls = new ArrayList<>();
         this.balls.add(new Ball(1, 1, 10, 20, 70, 10, 10, Color.BLUE, gamePanel, positionManager));
@@ -77,8 +87,7 @@ public class Game implements Runnable {
         this.blocks.add(new Block(240, 150, 10, 30, Color.MAGENTA, gamePanel, positionManager));
         this.blocks.add(new Block(370, 60, 20, 30, Color.PINK, gamePanel, positionManager));
 
-        final int initialBatWidth = 90;
-        this.bat = new Bat((positionManager.getMaxX() - initialBatWidth) / 2, initialBatWidth, Color.BLACK, gamePanel, positionManager);
+        this.bat = new Bat((positionManager.getMaxX() - Bat.INITIAL_WIDTH) / 2, Bat.INITIAL_WIDTH, Color.BLACK, gamePanel, positionManager);
     }
 
     /**
@@ -102,7 +111,7 @@ public class Game implements Runnable {
         for (Ball ball : getBalls()) {
             ball.start();
         }
-        while (hasLivesRemaining()) { }
+        while (hasLivesRemaining()) {  }
     }
 
     /**
@@ -129,7 +138,7 @@ public class Game implements Runnable {
      * @param livesRemaining new value of livesRemaining
      */
     public void setLivesRemaining(int livesRemaining) {
-        if (livesRemaining >= 0) {
+        if (livesRemaining <= 0) {
             this.livesRemaining = 0;
         } else {
             this.livesRemaining = livesRemaining;
@@ -215,5 +224,14 @@ public class Game implements Runnable {
      */
     public PositionManager getPositionManager() {
         return positionManager;
+    }
+
+    public void newBall() {
+        if (this.hasLivesRemaining()) {
+            final Ball newBall = new Ball(1, -1, 10, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 10, 10, Color.CYAN, gamePanel, positionManager);
+            this.balls.add(newBall);
+            newBall.display();
+            newBall.start();
+        }
     }
 }

@@ -1,11 +1,11 @@
 package com.gmail.jameshealey1994.breakout.object;
 
-import com.gmail.jameshealey1994.breakout.GamePanel;
 import com.gmail.jameshealey1994.breakout.Lock;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
 
 /**
  * Abstract class representing a GameObject that can move.
@@ -42,7 +42,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     /**
      * Constructs a new MovableGameObject using the passed values.
      */
-    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, GamePanel gamePanel, PositionManager positionManager) {
+    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, y, height, width, color, gamePanel, positionManager);
         this.stepX = stepX;
         this.stepY = stepY;

@@ -1,9 +1,9 @@
 package com.gmail.jameshealey1994.breakout.object;
 
-import com.gmail.jameshealey1994.breakout.GamePanel;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 import java.awt.Graphics;
+import javax.swing.JComponent;
 
 /**
  * Abstract class representing an object in the game.
@@ -45,7 +45,7 @@ public abstract class GameObject {
     /**
      * Manages how the GameObject is displayed.
      */
-    private final GamePanel gamePanel;
+    private final JComponent gamePanel;
 
     /**
      * Manages the position of the MovableGameObject.
@@ -62,7 +62,7 @@ public abstract class GameObject {
      * @param color             color of the GameObject
      * @param gamePanel         gamePanel of the GameObject
      */
-    public GameObject(int x, int y, int height, int width, Color color, GamePanel gamePanel, PositionManager positionManager) {
+    public GameObject(int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         this.x = x;
         this.y = y;
         this.height = height;
@@ -187,11 +187,11 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the GameObject's GamePanel.
+     * Returns the JComponent that the GameObject will be displayed on.
      *
-     * @return  the GamePanel of the GameObject
+     * @return  the JComponent that the GameObject will be displayed on.
      */
-    public GamePanel getGamePanel() {
+    public JComponent getGamePanel() {
         return gamePanel;
     }
 

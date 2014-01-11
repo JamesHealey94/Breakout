@@ -29,21 +29,23 @@ public class PositionManager {
     private final int maxY;
 
     /**
+     * The Game being played.
+     */
+    private final Game game;
+
+    /**
      * Constructor - Sets max X and Y.
      *
+     * @param game      Game being played
      * @param maxX      X coordinate of the right wall
      * @param maxY      Y coordinate of the floor
      */
-    public PositionManager(int maxX, int maxY) {
+    public PositionManager(Game game, int maxX, int maxY) {
+        this.game = game;
         this.maxX = maxX;
         this.maxY = maxY;
     }
 
-    /**
-     * Move object, bouncing off other objects and walls if necessary.
-     *
-     * @param moving    the object moving
-     */
     public void update(MovableGameObject moving) {
         for (GameObject obj : objects) {
             if (!(moving.equals(obj))) {
@@ -67,9 +69,9 @@ public class PositionManager {
         }
 
         if (isTouchingFloor(moving)) {
-            moving.changeDirectionY();
-            //moving.setAlive(false); //TODO change once paddle is done
-            // reduce game lives remaining by 1
+            moving.setAlive(false);
+            game.setLivesRemaining(game.getLivesRemaining() - 1);
+            game.newBall();
         }
 
         moving.step();
@@ -118,7 +120,7 @@ public class PositionManager {
      */
     private boolean isTouchingFloor(MovableGameObject moving) {
         //System.out.println("bottom         " + moving.getX() + " " + moving.getY());
-        return moving.getY() + moving.getHeight() >= maxY;
+        return moving.getY() >= maxY;
     }
 
     /**
