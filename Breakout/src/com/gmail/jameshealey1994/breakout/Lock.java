@@ -6,9 +6,15 @@ package com.gmail.jameshealey1994.breakout;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class Lock {
-    
+
     /**
      * Static object to be used as a LOCK to synchronise threads.
      */
     public static final Lock LOCK = new Lock();
+
+    /**
+     * Private constructor - No Lock objects should be created.
+     */
+    private Lock() {
+    }
 }

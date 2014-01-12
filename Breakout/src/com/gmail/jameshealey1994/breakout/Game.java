@@ -7,8 +7,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 /**
@@ -226,6 +224,9 @@ public class Game implements Runnable {
         return positionManager;
     }
 
+    /**
+     * Creates and starts a new ball if the Game has lives remaining.
+     */
     public void newBall() {
         if (this.hasLivesRemaining()) {
             final Ball newBall = new Ball(1, -1, 10, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 10, 10, Color.CYAN, gamePanel, positionManager);

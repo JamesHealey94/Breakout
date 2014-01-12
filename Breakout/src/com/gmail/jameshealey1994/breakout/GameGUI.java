@@ -27,10 +27,10 @@ public class GameGUI extends JFrame {
         //this.setIconImage(null); // TODO create Icon
         this.setLayout(new BorderLayout());
 
-        gamePanel = new GamePanel(); // TODO should it be double buffered?
+        gamePanel = new GamePanel();
         this.add(gamePanel, BorderLayout.CENTER);
         gamePanel.setPreferredSize(new Dimension(640, 480));
-        //this.setResizable(false); TODO fix display issue when resizing.
+        //this.setResizable(false); // TODO uncomment after display work is finished
         this.pack();
     }
 
