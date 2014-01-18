@@ -60,7 +60,8 @@ public abstract class GameObject {
      * @param height            height of the GameObject
      * @param width             width of the GameObject
      * @param color             color of the GameObject
-     * @param gamePanel         gamePanel of the GameObject
+     * @param gamePanel         GamePanel of the GameObject
+     * @param positionManager   PositionManager of the GameObject
      */
     public GameObject(int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         this.x = x;

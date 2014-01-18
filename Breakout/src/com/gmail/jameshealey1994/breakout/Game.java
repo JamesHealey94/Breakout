@@ -57,6 +57,12 @@ public class Game implements Runnable {
      */
     private int points = 0;
 
+    /**
+     * Constructor - Creates a Game on a GamePanel, sets the PositionManager,
+     * and adds Balls, Blocks and a Bat.
+     *
+     * @param gamePanel     GamePanel the Game is displayed on
+     */
     public Game(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
 

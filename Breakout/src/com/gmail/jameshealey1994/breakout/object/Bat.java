@@ -26,6 +26,17 @@ public class Bat extends GameObject {
      */
     public static final int INITIAL_WIDTH = 90;
 
+    /**
+     * Constructor - Creates a Bat with a GamePanel and PositionManager, and an
+     * initial x coordinate, width, and color.
+     *
+     * @param x                 Initial leftmost x coordinate
+     * @param width             Initial width
+     * @param color             Initial color
+     * @param gamePanel         Where the object is displayed
+     * @param positionManager   Manages the positions of objects against the
+     *                          walls and each other
+     */
     public Bat(int x, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, positionManager.getMaxY() - BAT_Y, BAT_HEIGHT, width, color, gamePanel, positionManager);
     }

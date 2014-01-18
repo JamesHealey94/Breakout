@@ -41,6 +41,17 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     /**
      * Constructs a new MovableGameObject using the passed values.
+     *
+     * @param stepX             Pixels the object moves on the X axis every step
+     * @param stepY             Pixels the object moves on the Y axis every step
+     * @param delay             Time in milliseconds between every step
+     * @param x                 Initial leftmost X coordinate
+     * @param y                 Initial leftmost Y coordinate
+     * @param height            Height in pixels
+     * @param width             Width in pixels
+     * @param color             Colour of the object
+     * @param gamePanel         GamePanel the object will be displayed on
+     * @param positionManager   PositionManager used to manage object positions
      */
     public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, y, height, width, color, gamePanel, positionManager);

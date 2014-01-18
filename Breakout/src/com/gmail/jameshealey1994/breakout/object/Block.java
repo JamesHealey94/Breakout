@@ -11,6 +11,19 @@ import javax.swing.JComponent;
  */
 public class Block extends GameObject {
 
+    /**
+     * Constructor - Creates a Bat with a GamePanel and PositionManager, and an
+     * initial x coordinate, width, and color.
+     *
+     * @param x                 Initial leftmost X coordinate
+     * @param y                 Initial highest Y coordinate
+     * @param height            Initial height
+     * @param width             Initial width
+     * @param color             Initial color
+     * @param gamePanel         Where the object is displayed
+     * @param positionManager   Manages the positions of objects against the
+     *                          walls and each other
+     */
     public Block(int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, y, height, width, color, gamePanel, positionManager);
     }

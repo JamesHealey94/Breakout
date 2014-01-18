@@ -46,6 +46,13 @@ public class PositionManager {
         this.maxY = maxY;
     }
 
+    /**
+     * Updates positions of MovableGameObject passed and the positions of all
+     * GamesObjects in the PositionManager.
+     *
+     * @param moving    object moving and possibly colliding with walls or other
+     *                  objects
+     */
     public void update(MovableGameObject moving) {
         for (GameObject obj : objects) {
             if (!(moving.equals(obj))) {

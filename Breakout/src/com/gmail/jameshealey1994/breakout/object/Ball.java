@@ -16,6 +16,21 @@ public class Ball extends MovableGameObject {
      */
     public static final int INITIAL_Y = Bat.BAT_Y + 20;
 
+    /**
+     * Constructor - Creates a Ball with starting position and initial color.
+     *
+     * @param stepX             Pixels the object moves on the X axis every step
+     * @param stepY             Pixels the object moves on the Y axis every step
+     * @param delay             Time in milliseconds between every step
+     * @param x                 Initial leftmost x coordinate
+     * @param y                 Initial highest Y coordinate
+     * @param height            Initial height
+     * @param width             Initial width
+     * @param color             Initial color
+     * @param gamePanel         Where the object is displayed
+     * @param positionManager   Manages the positions of objects against the
+     *                          walls and each other
+     */
     public Ball(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(stepX, stepY, delay, x, y, height, width, color, gamePanel, positionManager);
     }
