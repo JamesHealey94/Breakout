@@ -211,4 +211,13 @@ public abstract class GameObject {
      * @param moving    MovableGameObject that hit this object
      */
     abstract public void onHit(MovableGameObject moving);
+
+    /**
+     * Returns the middle X coordinate of the Bat.
+     *
+     * @return  the middle X coordinate of the Bat
+     */
+    public int getMiddleX() {
+        return getX() + getWidth() / 2;
+    }
 }
