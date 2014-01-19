@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
                 synchronized (Lock.LOCK) {
                     for (int i = 0; i < 10; i++) {
                         bat.clear();
-                        final int newPosX = bat.getX() - 1;
+                        final double newPosX = bat.getX() - 1;
                         if (bat.isValidMove(newPosX)) {
                             bat.setX(newPosX);
                         }
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
                 synchronized (Lock.LOCK) {
                     for (int i = 0; i < 10; i++) {
                         bat.clear();
-                        final int newPosX = bat.getX() + 1;
+                        final double newPosX = bat.getX() + 1;
                         if (bat.isValidMove(newPosX)) {
                             bat.setX(newPosX);
                         }

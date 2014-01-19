@@ -2,6 +2,7 @@ package com.gmail.jameshealey1994.breakout.object;
 
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
+import java.awt.Graphics;
 import javax.swing.JComponent;
 
 /**
@@ -31,7 +32,18 @@ public class Ball extends MovableGameObject {
      * @param positionManager   Manages the positions of objects against the
      *                          walls and each other
      */
-    public Ball(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
+    public Ball(double stepX, double stepY, int delay, double x, double y, double height, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(stepX, stepY, delay, x, y, height, width, color, gamePanel, positionManager);
+    }
+
+    /**
+     * Paints the GameObject onto the passed Graphics.
+     *
+     * @param g     Graphics to paint the GameObject on to
+     */
+    @Override
+    public void paint(Graphics g) {
+        g.setColor(getColor());
+        g.fillOval((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
     }
 }

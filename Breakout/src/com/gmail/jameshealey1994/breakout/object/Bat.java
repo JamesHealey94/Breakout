@@ -24,7 +24,7 @@ public class Bat extends GameObject {
     /**
      * The initial width of bats (normally).
      */
-    public static final int INITIAL_WIDTH = 90;
+    public static final int INITIAL_WIDTH = 200;
 
     /**
      * Constructor - Creates a Bat with a GamePanel and PositionManager, and an
@@ -37,7 +37,7 @@ public class Bat extends GameObject {
      * @param positionManager   Manages the positions of objects against the
      *                          walls and each other
      */
-    public Bat(int x, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
+    public Bat(double x, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, positionManager.getMaxY() - BAT_Y, BAT_HEIGHT, width, color, gamePanel, positionManager);
     }
 
@@ -48,35 +48,39 @@ public class Bat extends GameObject {
      * @param newPosX       potential new X coordinate
      * @return              if the bat's move will be valid.
      */
-    public boolean isValidMove(final int newPosX) {
+    public boolean isValidMove(final double newPosX) {
         return (0 < newPosX) && (newPosX + this.getWidth() < this.getPositionManager().getMaxX());
     }
 
     @Override
     public void onHit(MovableGameObject moving) {
         // TODO perhaps increase speed (decrease delay) every time the ball hits the bat.
+        final double thisX; // TODO better name?
+        final double movingX; // TODO better name?
+
+        if (moving.getMiddleX() < this.getMiddleX()) {
+            // ball's middle landed in left half of bat
+            thisX = this.getMiddleX() - this.getX();
+            movingX = moving.getMiddleX() - this.getX();
+            moving.setStepY(movingX / thisX);
+            moving.setStepX(1 - moving.getStepY());
+            moving.changeDirectionX();
+        } else {
+            // ball's middle landed in center of right half of bat
+            thisX = this.getRightmostX() - this.getMiddleX();
+            movingX = moving.getMiddleX() - this.getMiddleX();
+            moving.setStepX(movingX / thisX);
+            moving.setStepY(1 - moving.getStepX());
+        }
         moving.changeDirectionY();
-        final int movingMiddleX = moving.getX() + (moving.getWidth() / 2); // TODO improve
-        final int batMiddleThirdLeftX = this.getX() + (this.getWidth() / 3);
-        final int batRightThirdLeftX = this.getX() + (2 * (this.getWidth() / 3));
-        if (movingMiddleX < batMiddleThirdLeftX) { // if ball hits left third of the bat...
-            if (moving.getStepX() > 0) { // ...set direction to left
-                moving.changeDirectionX();
-            }
-        }
-        if (batRightThirdLeftX < movingMiddleX) { // if ball hits right third of the bat...
-            if (moving.getStepX() < 0) { // ...set direction to right
-                moving.changeDirectionX();
-            }
-        }
     }
 
     /**
-     * Returns the middle X coordinate of the Bat.
+     * Returns rightmost X coordinate of the Bat.
      *
-     * @return  the middle X coordinate of the Bat
+     * @return  rightmost X coordinate of the Bat
      */
-    public int getMiddleX() {
-        return getX() + getWidth() / 2;
+    public double getRightmostX() {
+        return this.getX() + this.getWidth();
     }
 }

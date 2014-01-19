@@ -15,22 +15,22 @@ public abstract class GameObject {
     /**
      * The leftmost X coordinate of the GameObject.
      */
-    private int x;
+    private double x;
 
     /**
      * The highest y coordinate of the GameObject.
      */
-    private int y;
+    private double y;
 
     /**
      * The height of the GameObject.
      */
-    private int height;
+    private double height;
 
     /**
      * The width of the GameObject.
      */
-    private int width;
+    private double width;
 
     /**
      * The color of the GameObject.
@@ -63,7 +63,7 @@ public abstract class GameObject {
      * @param gamePanel         GamePanel of the GameObject
      * @param positionManager   PositionManager of the GameObject
      */
-    public GameObject(int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
+    public GameObject(double x, double y, double height, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
         this.x = x;
         this.y = y;
         this.height = height;
@@ -87,7 +87,7 @@ public abstract class GameObject {
      */
     public void paint(Graphics g) {
         g.setColor(getColor());
-        g.fillRect(getX(), getY(), getWidth(), getHeight());
+        g.fillRect((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class GameObject {
      *
      * @return the value of x
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -111,7 +111,7 @@ public abstract class GameObject {
      *
      * @param x new value of x
      */
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -120,7 +120,7 @@ public abstract class GameObject {
      *
      * @return the value of y
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -129,7 +129,7 @@ public abstract class GameObject {
      *
      * @param y new value of y
      */
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -138,7 +138,7 @@ public abstract class GameObject {
      *
      * @return the value of height
      */
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
@@ -147,7 +147,7 @@ public abstract class GameObject {
      *
      * @param height new value of height
      */
-    public void setHeight(int height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
@@ -156,7 +156,7 @@ public abstract class GameObject {
      *
      * @return the value of width
      */
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
@@ -165,7 +165,7 @@ public abstract class GameObject {
      *
      * @param width new value of width
      */
-    public void setWidth(int width) {
+    public void setWidth(double width) {
         this.width = width;
     }
 
@@ -217,7 +217,7 @@ public abstract class GameObject {
      *
      * @return  the middle X coordinate of the Bat
      */
-    public int getMiddleX() {
+    public double getMiddleX() {
         return getX() + getWidth() / 2;
     }
 }

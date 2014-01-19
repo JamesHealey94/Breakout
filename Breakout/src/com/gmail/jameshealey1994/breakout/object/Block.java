@@ -24,7 +24,7 @@ public class Block extends GameObject {
      * @param positionManager   Manages the positions of objects against the
      *                          walls and each other
      */
-    public Block(int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
+    public Block(double x, double y, double height, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, y, height, width, color, gamePanel, positionManager);
     }
 

@@ -17,12 +17,12 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     /**
      * How far the object moves right every step.
      */
-    private int stepX;
+    private double stepX;
 
     /**
      * How far the object moves up every step.
      */
-    private int stepY;
+    private double stepY;
 
     /**
      * Delay in milliseconds between steps.
@@ -42,8 +42,8 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     /**
      * Constructs a new MovableGameObject using the passed values.
      *
-     * @param stepX             Pixels the object moves on the X axis every step
-     * @param stepY             Pixels the object moves on the Y axis every step
+     * @param stepX             Pixels the object moves right every step
+     * @param stepY             Pixels the object moves up every step
      * @param delay             Time in milliseconds between every step
      * @param x                 Initial leftmost X coordinate
      * @param y                 Initial leftmost Y coordinate
@@ -53,7 +53,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      * @param gamePanel         GamePanel the object will be displayed on
      * @param positionManager   PositionManager used to manage object positions
      */
-    public MovableGameObject(int stepX, int stepY, int delay, int x, int y, int height, int width, Color color, JComponent gamePanel, PositionManager positionManager) {
+    public MovableGameObject(double stepX, double stepY, int delay, double x, double y, double height, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
         super(x, y, height, width, color, gamePanel, positionManager);
         this.stepX = stepX;
         this.stepY = stepY;
@@ -143,7 +143,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      *
      * @return the value of stepX
      */
-    public int getStepX() {
+    public double getStepX() {
         return stepX;
     }
 
@@ -152,7 +152,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      *
      * @param stepX new value of stepX
      */
-    public void setStepX(int stepX) {
+    public void setStepX(double stepX) {
         this.stepX = stepX;
     }
 
@@ -161,7 +161,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      *
      * @return the value of stepY
      */
-    public int getStepY() {
+    public double getStepY() {
         return stepY;
     }
 
@@ -170,7 +170,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      *
      * @param stepY new value of stepY
      */
-    public void setStepY(int stepY) {
+    public void setStepY(double stepY) {
         this.stepY = stepY;
     }
 

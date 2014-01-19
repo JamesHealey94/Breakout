@@ -69,8 +69,8 @@ public class Game implements Runnable {
         this.positionManager = new PositionManager(this, gamePanel.getWidth(), gamePanel.getHeight());
 
         this.balls = new ArrayList<>();
-        this.balls.add(new Ball(1, 1, 10, 20, 70, 10, 10, Color.BLUE, gamePanel, positionManager));
-        this.balls.add(new Ball(1, 1, 10, 200, 30, 10, 10, Color.GREEN, gamePanel, positionManager));
+        this.balls.add(new Ball(0.2, 0.8, 3, 20, 70, 10, 10, Color.BLUE, gamePanel, positionManager));
+        this.balls.add(new Ball(0.5, 0.5, 3, 200, 30, 10, 10, Color.GREEN, gamePanel, positionManager));
 
         this.blocks = new ArrayList<>();
         this.blocks.add(new Block(40, 30, 10, 30, Color.RED, gamePanel, positionManager)); // TODO do gameobjects need a position manager?
@@ -235,7 +235,7 @@ public class Game implements Runnable {
      */
     public void newBall() {
         if (this.hasLivesRemaining()) {
-            final Ball newBall = new Ball(1, -1, 10, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 10, 10, Color.CYAN, gamePanel, positionManager);
+            final Ball newBall = new Ball(0.8, -0.2, 3, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 10, 10, Color.CYAN, gamePanel, positionManager);
             this.balls.add(newBall);
             newBall.display();
             newBall.start();
