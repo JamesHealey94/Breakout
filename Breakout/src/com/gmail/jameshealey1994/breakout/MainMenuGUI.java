@@ -2,7 +2,6 @@ package com.gmail.jameshealey1994.breakout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -52,7 +51,6 @@ public class MainMenuGUI extends JFrame {
      */
     private void createAndShowGameGUI() {
         final GameGUI gameGUI = new GameGUI();
-        gameGUI.setPreferredSize(new Dimension(640, 480));
         gameGUI.setLocationRelativeTo(this);
         gameGUI.setVisible(true);
         gameGUI.start();

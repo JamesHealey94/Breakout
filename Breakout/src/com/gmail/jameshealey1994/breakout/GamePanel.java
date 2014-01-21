@@ -2,6 +2,7 @@ package com.gmail.jameshealey1994.breakout;
 
 import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
@@ -95,5 +96,10 @@ public class GamePanel extends JPanel implements Runnable {
         for (GameObject gameObject : game.getPositionManager().getGameObjects()) {
             gameObject.paint(g);
         }
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(640, 480);
     }
 }

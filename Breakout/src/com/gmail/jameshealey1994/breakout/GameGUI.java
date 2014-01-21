@@ -29,7 +29,6 @@ public class GameGUI extends JFrame {
 
         gamePanel = new GamePanel();
         this.add(gamePanel, BorderLayout.CENTER);
-        gamePanel.setPreferredSize(new Dimension(640, 480));
         //this.setResizable(false); // TODO uncomment after display work is finished
         this.pack();
     }
@@ -40,5 +39,10 @@ public class GameGUI extends JFrame {
     public void start() {
         final Thread thread = new Thread(gamePanel);
         thread.start();
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(640, 480);
     }
 }
