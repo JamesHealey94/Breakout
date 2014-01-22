@@ -2,9 +2,6 @@ package com.gmail.jameshealey1994.breakout;
 
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import com.gmail.jameshealey1994.breakout.object.MovableGameObject;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Class to manage the position of GameObjects in a Game.
@@ -12,11 +9,6 @@ import java.util.Set;
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
 public class PositionManager {
-
-    /**
-     * Set of GameObjects that can be bounced off of.
-     */
-    private final Set<GameObject> objects = new HashSet<>();
 
     /**
      * The X coordinate of the right wall.
@@ -54,7 +46,7 @@ public class PositionManager {
      *                  objects
      */
     public void update(MovableGameObject moving) {
-        for (GameObject obj : objects) {
+        for (GameObject obj : game.getGameObjects()) {
             if (!(moving.equals(obj))) {
                 final boolean bounceX = isTouchingX(moving, obj); // TODO test an object inside an object, should position be set as well as direction changed?
                 final boolean bounceY = isTouchingY(moving, obj);
@@ -76,9 +68,12 @@ public class PositionManager {
         }
 
         if (isTouchingFloor(moving)) {
-            moving.setAlive(false);
-            game.setLivesRemaining(game.getLivesRemaining() - 1);
-            game.newBall();
+            synchronized (Lock.LOCK) {
+                moving.setAlive(false);
+                game.setLivesRemaining(game.getLivesRemaining() - 1);
+                game.getBalls().remove(moving);
+                game.newBall();
+            }
         }
 
         moving.step();
@@ -153,26 +148,6 @@ public class PositionManager {
     }
 
     /**
-     * Adds a GameObject to the objects Set.
-     *
-     * @param object    object to be added to the set
-     * @return          if the object was successfully added
-     */
-    public boolean addGameObject(GameObject object) {
-        return objects.add(object);
-    }
-
-    /**
-     * Removes a GameObject from the objects Set.
-     *
-     * @param object    object to be removed from the set
-     * @return          if the object was successfully removed
-     */
-    public boolean removeGameObject(GameObject object) {
-        return objects.remove(object);
-    }
-
-    /**
      * Returns the current value of maxX.
      *
      * @return      the current value of maxX
@@ -188,16 +163,5 @@ public class PositionManager {
      */
     public int getMaxY() {
         return maxY;
-    }
-
-    /**
-     * Returns the GameObjects stored.
-     * This set of GameObjects will change when a block is added or removed.
-     * For example, when a ball hits a block, and the block is removed.
-     *
-     * @return      the GameObjects stored
-     */
-    public Set<GameObject> getGameObjects() {
-        return Collections.unmodifiableSet(objects);
     }
 }

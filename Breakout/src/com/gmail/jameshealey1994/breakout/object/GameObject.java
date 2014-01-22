@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout.object;
 
+import com.gmail.jameshealey1994.breakout.Game;
 import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -37,20 +38,20 @@ public abstract class GameObject {
      */
     private Color color;
 
-//    /**
-//     * Manages how the GameObject is displayed.
-//     */
-//    private final DisplayManager displayManager;
-
     /**
      * Manages how the GameObject is displayed.
      */
     private final JComponent gamePanel;
 
     /**
-     * Manages the position of the MovableGameObject.
+     * Manages the position of the GameObject.
      */
     private final PositionManager positionManager;
+
+    /**
+     * Game the GameObject belongs to.
+     */
+    private final Game game;
 
     /**
      * Constructs a new GameObject using the passed values.
@@ -60,17 +61,17 @@ public abstract class GameObject {
      * @param height            height of the GameObject
      * @param width             width of the GameObject
      * @param color             color of the GameObject
-     * @param gamePanel         GamePanel of the GameObject
-     * @param positionManager   PositionManager of the GameObject
+     * @param game              game the object belongs to
      */
-    public GameObject(double x, double y, double height, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
+    public GameObject(double x, double y, double height, double width, Color color, Game game) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.color = color;
-        this.gamePanel = gamePanel;
-        this.positionManager = positionManager;
+        this.game = game;
+        this.gamePanel = game.getGamePanel();
+        this.positionManager = game.getPositionManager();
     }
 
     /**
@@ -213,11 +214,20 @@ public abstract class GameObject {
     abstract public void onHit(MovableGameObject moving);
 
     /**
-     * Returns the middle X coordinate of the Bat.
+     * Returns the middle X coordinate of the object.
      *
-     * @return  the middle X coordinate of the Bat
+     * @return  the middle X coordinate of the object
      */
     public double getMiddleX() {
         return getX() + getWidth() / 2;
+    }
+
+    /**
+     * Returns the Game the object.
+     *
+     * @return  the Game of the object
+     */
+    public Game getGame() {
+        return game;
     }
 }

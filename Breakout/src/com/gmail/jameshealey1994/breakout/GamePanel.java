@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
     /**
      * Game using the Game Panel.
      */
-    private Game game;
+    private Game game/* = new Game(this)*/; // TODO figure out why balls and bat aren't shown if game is initialised here and not in run()
 
     @Override
     public void run() {
@@ -92,8 +92,10 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        for (GameObject gameObject : game.getPositionManager().getGameObjects()) {
+        if (game == null) {
+            return; // TODO find a better solution
+        }
+        for (GameObject gameObject : game.getGameObjects()) {
             gameObject.paint(g);
         }
     }

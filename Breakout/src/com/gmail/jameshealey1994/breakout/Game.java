@@ -3,10 +3,13 @@ package com.gmail.jameshealey1994.breakout;
 import com.gmail.jameshealey1994.breakout.object.Ball;
 import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Block;
+import com.gmail.jameshealey1994.breakout.object.GameObject;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JComponent;
 
 /**
@@ -69,29 +72,41 @@ public class Game implements Runnable {
         this.positionManager = new PositionManager(this, gamePanel.getWidth(), gamePanel.getHeight());
 
         this.balls = new ArrayList<>();
-        this.balls.add(new Ball(0.2, 0.8, 3, 20, 70, 10, 10, Color.BLUE, gamePanel, positionManager));
-        this.balls.add(new Ball(0.5, 0.5, 3, 200, 30, 10, 10, Color.GREEN, gamePanel, positionManager));
+        this.balls.add(new Ball(0.2, 0.8, 3, 100, 270, 15, 15, Color.BLUE, this));
+        this.balls.add(new Ball(0.5, 0.5, 3, 200, 230, 15, 15, Color.GREEN, this));
 
         this.blocks = new ArrayList<>();
-        this.blocks.add(new Block(40, 30, 10, 30, Color.RED, gamePanel, positionManager)); // TODO do gameobjects need a position manager?
-        this.blocks.add(new Block(70, 30, 10, 30, Color.CYAN, gamePanel, positionManager));
-        this.blocks.add(new Block(10, 30, 10, 30, Color.ORANGE, gamePanel, positionManager));
-        this.blocks.add(new Block(10, 50, 10, 30, Color.YELLOW, gamePanel, positionManager));
-        this.blocks.add(new Block(40, 50, 10, 30, Color.MAGENTA, gamePanel, positionManager));
-        this.blocks.add(new Block(70, 50, 10, 30, Color.PINK, gamePanel, positionManager));
-        this.blocks.add(new Block(100, 30, 10, 30, Color.RED, gamePanel, positionManager));
-        this.blocks.add(new Block(170, 30, 10, 30, Color.CYAN, gamePanel, positionManager));
-        this.blocks.add(new Block(110, 70, 10, 30, Color.ORANGE, gamePanel, positionManager));
-        this.blocks.add(new Block(110, 150, 10, 30, Color.YELLOW, gamePanel, positionManager));
-        this.blocks.add(new Block(140, 150, 10, 30, Color.MAGENTA, gamePanel, positionManager));
-        this.blocks.add(new Block(170, 50, 10, 30, Color.PINK, gamePanel, positionManager));
-        this.blocks.add(new Block(370, 30, 10, 30, Color.CYAN, gamePanel, positionManager));
-        this.blocks.add(new Block(210, 70, 10, 30, Color.ORANGE, gamePanel, positionManager));
-        this.blocks.add(new Block(310, 150, 10, 40, Color.YELLOW, gamePanel, positionManager));
-        this.blocks.add(new Block(240, 150, 10, 30, Color.MAGENTA, gamePanel, positionManager));
-        this.blocks.add(new Block(370, 60, 20, 30, Color.PINK, gamePanel, positionManager));
 
-        this.bat = new Bat((positionManager.getMaxX() - Bat.INITIAL_WIDTH) / 2, Bat.INITIAL_WIDTH, Color.BLACK, gamePanel, positionManager);
+        this.blocks.add(new Block(100, 30, 20, 40, Color.ORANGE, this));
+        this.blocks.add(new Block(140, 30, 20, 40, Color.RED, this));
+        this.blocks.add(new Block(180, 30, 20, 40, Color.GREEN, this));
+        this.blocks.add(new Block(220, 30, 20, 40, Color.CYAN, this));
+        this.blocks.add(new Block(260, 30, 20, 40, Color.RED, this));
+        this.blocks.add(new Block(300, 30, 20, 40, Color.PINK, this));
+
+        this.blocks.add(new Block(110, 50, 20, 40, Color.YELLOW, this));
+        this.blocks.add(new Block(150, 50, 20, 40, Color.MAGENTA, this));
+        this.blocks.add(new Block(190, 50, 20, 40, Color.RED, this));
+        this.blocks.add(new Block(230, 50, 20, 40, Color.PINK, this));
+        this.blocks.add(new Block(270, 50, 20, 40, Color.BLUE, this));
+        this.blocks.add(new Block(310, 50, 20, 40, Color.PINK, this));
+
+        this.blocks.add(new Block(120, 70, 20, 40, Color.PINK, this));
+        this.blocks.add(new Block(160, 70, 20, 40, Color.ORANGE, this));
+        this.blocks.add(new Block(200, 70, 20, 40, Color.MAGENTA, this));
+        this.blocks.add(new Block(240, 70, 20, 40, Color.ORANGE, this));
+
+        this.blocks.add(new Block(130, 90, 20, 40, Color.YELLOW, this));
+        this.blocks.add(new Block(170, 90, 20, 40, Color.MAGENTA, this));
+        this.blocks.add(new Block(210, 90, 20, 40, Color.YELLOW, this));
+        this.blocks.add(new Block(250, 90, 20, 40, Color.MAGENTA, this));
+
+        this.blocks.add(new Block(140, 110, 20, 40, Color.RED, this));
+        this.blocks.add(new Block(180, 110, 20, 40, Color.LIGHT_GRAY, this));
+        this.blocks.add(new Block(220, 110, 20, 40, Color.MAGENTA, this));
+
+
+        this.bat = new Bat((positionManager.getMaxX() - Bat.INITIAL_WIDTH) / 2, Bat.INITIAL_WIDTH, Color.BLACK, this);
     }
 
     /**
@@ -104,18 +119,14 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        for (Block block : getBlocks()) {
-            positionManager.addGameObject(block);
-            //block.display();
-        }
-
-        positionManager.addGameObject(this.bat);
-        bat.display();
-
         for (Ball ball : getBalls()) {
             ball.start();
         }
-        while (hasLivesRemaining()) {  }
+        while (hasLivesRemaining() || !this.getBalls().isEmpty()) {
+            System.out.println("livesRemaining " + livesRemaining + "     this.getBalls().size()" + this.getBalls().size()); // TODO remove once working fully
+        }
+
+        System.out.println("livesRemaining " + livesRemaining + "     this.getBalls().size()" + this.getBalls().size() + " THREAD FINISHED"); // TODO remove once working fully
     }
 
     /**
@@ -164,7 +175,7 @@ public class Game implements Runnable {
      * @return the value of balls
      */
     public Collection<Ball> getBalls() {
-        return Collections.unmodifiableCollection(balls);
+        return balls;
     }
 
     /**
@@ -209,7 +220,7 @@ public class Game implements Runnable {
      * @return  the object's blocks as an unmodifiable collection
      */
     public Collection<Block> getBlocks() {
-        return Collections.unmodifiableCollection(blocks);
+        return blocks;
     }
 
     /**
@@ -235,10 +246,62 @@ public class Game implements Runnable {
      */
     public void newBall() {
         if (this.hasLivesRemaining()) {
-            final Ball newBall = new Ball(0.8, -0.2, 3, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 10, 10, Color.CYAN, gamePanel, positionManager);
+            final Ball newBall = new Ball(0.8, -0.2, 3, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 15, 15, Color.CYAN, this);
             this.balls.add(newBall);
             newBall.display();
             newBall.start();
         }
     }
+
+    /**
+     * Returns the JComponent the game is displayed on.
+     *
+     * @return  the JComponent the game is displayed on
+     */
+    public JComponent getGamePanel() {
+        return gamePanel;
+    }
+
+    /**
+     * Sets the points of the game.
+     *
+     * @param points    new points value
+     */
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    /**
+     * Returns all the GameObjects in the game.
+     *
+     * @return      the GameObjects stored
+     */
+    public Set<GameObject> getGameObjects() {
+        final Set<GameObject> objects = new HashSet<>();
+        objects.addAll(blocks);
+        objects.addAll(balls);
+        objects.add(bat);
+        return Collections.unmodifiableSet(objects);
+    }
+
+//    TODO perhaps remove
+//    /**
+//     * Adds a GameObject to the objects Set.
+//     *
+//     * @param object    object to be added to the set
+//     * @return          if the object was successfully added
+//     */
+//    public boolean addGameObject(GameObject object) {
+//        return objects.add(object);
+//    }
+//
+//    /**
+//     * Removes a GameObject from the objects Set.
+//     *
+//     * @param object    object to be removed from the set
+//     * @return          if the object was successfully removed
+//     */
+//    public boolean removeGameObject(GameObject object) {
+//        return objects.remove(object);
+//    }
 }

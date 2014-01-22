@@ -1,11 +1,10 @@
 package com.gmail.jameshealey1994.breakout.object;
 
+import com.gmail.jameshealey1994.breakout.Game;
 import com.gmail.jameshealey1994.breakout.Lock;
-import com.gmail.jameshealey1994.breakout.PositionManager;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComponent;
 
 /**
  * Abstract class representing a GameObject that can move.
@@ -50,11 +49,10 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
      * @param height            Height in pixels
      * @param width             Width in pixels
      * @param color             Colour of the object
-     * @param gamePanel         GamePanel the object will be displayed on
-     * @param positionManager   PositionManager used to manage object positions
+     * @param game              Game the object belongs to
      */
-    public MovableGameObject(double stepX, double stepY, int delay, double x, double y, double height, double width, Color color, JComponent gamePanel, PositionManager positionManager) {
-        super(x, y, height, width, color, gamePanel, positionManager);
+    public MovableGameObject(double stepX, double stepY, int delay, double x, double y, double height, double width, Color color, Game game) {
+        super(x, y, height, width, color, game);
         this.stepX = stepX;
         this.stepY = stepY;
         this.delay = delay;
@@ -87,7 +85,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     @Override
     public void run() {
-        getPositionManager().addGameObject(this); // TODO change?
+        //getPositionManager().addGameObject(this); // TODO change? TODO remove
         while (isAlive()) {
             synchronized (Lock.LOCK) {
                 clear();
@@ -97,7 +95,7 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
             sleep();
         }
         //System.out.println("dead"); // TODO remove
-        getPositionManager().removeGameObject(this); // TODO change?
+        //getPositionManager().removeGameObject(this); // TODO change? TODO remove
     }
 
     /**
