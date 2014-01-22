@@ -82,7 +82,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         game.start();
         try {
-            game.getThread().join();
+            if (game.getThread().isAlive()) {
+                game.getThread().join();
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
