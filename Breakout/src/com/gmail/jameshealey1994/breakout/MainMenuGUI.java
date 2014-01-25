@@ -31,6 +31,9 @@ public class MainMenuGUI extends JFrame {
         this.setLayout(new BorderLayout());
 
         final JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+        buttonPanel.setVisible(true);
+        this.add(buttonPanel);
+
         final JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
             @Override
@@ -38,11 +41,20 @@ public class MainMenuGUI extends JFrame {
                 createAndShowGameGUI();
             }
         });
+        buttonPanel.add(playButton);
 
         playButton.setVisible(true);
         buttonPanel.add(playButton);
-        buttonPanel.setVisible(true);
-        this.add(buttonPanel);
+
+        final JButton scoresButton = new JButton("Scores");
+        scoresButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Display scores
+            }
+        });
+        buttonPanel.add(scoresButton);
+
         this.pack();
     }
 
