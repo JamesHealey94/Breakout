@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (InterruptedException ex) {
             Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "Points: " + game.getPoints());
+        JOptionPane.showMessageDialog(this, "Points: " + game.getPoints(), "Points", JOptionPane.PLAIN_MESSAGE);
     }
 
     @Override
