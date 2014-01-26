@@ -53,7 +53,7 @@ public class MainMenuGUI extends JFrame {
                 // Display scores
             }
         });
-        buttonPanel.add(scoresButton);
+        buttonPanel.add( scoresButton);
 
         this.pack();
     }
