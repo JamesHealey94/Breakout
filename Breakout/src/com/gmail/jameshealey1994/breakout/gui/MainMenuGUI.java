@@ -1,4 +1,4 @@
-package com.gmail.jameshealey1994.breakout;
+package com.gmail.jameshealey1994.breakout.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -53,7 +53,7 @@ public class MainMenuGUI extends JFrame {
                 // Display scores
             }
         });
-        buttonPanel.add( scoresButton);
+        buttonPanel.add(scoresButton);
 
         this.pack();
     }

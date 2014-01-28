@@ -1,5 +1,7 @@
-package com.gmail.jameshealey1994.breakout;
+package com.gmail.jameshealey1994.breakout.gui;
 
+import com.gmail.jameshealey1994.breakout.Game;
+import com.gmail.jameshealey1994.breakout.Lock;
 import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import java.awt.Dimension;

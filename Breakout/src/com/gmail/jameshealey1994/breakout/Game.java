@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout;
 
+import com.gmail.jameshealey1994.breakout.gui.GamePanel;
 import com.gmail.jameshealey1994.breakout.object.Ball;
 import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.Block;

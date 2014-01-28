@@ -1,4 +1,4 @@
-package com.gmail.jameshealey1994.breakout;
+package com.gmail.jameshealey1994.breakout.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

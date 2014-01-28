@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout;
 
+import com.gmail.jameshealey1994.breakout.gui.MainMenuGUI;
 import javax.swing.SwingUtilities;
 
 /**
