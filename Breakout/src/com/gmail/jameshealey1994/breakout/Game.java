@@ -72,9 +72,10 @@ public class Game implements Runnable {
 
         this.positionManager = new PositionManager(this, gamePanel.getWidth(), gamePanel.getHeight());
 
+        this.bat = new Bat((positionManager.getMaxX() - Bat.INITIAL_WIDTH) / 2, Bat.INITIAL_WIDTH, Color.BLACK, this);
+
         this.balls = new ArrayList<>();
-        this.balls.add(new Ball(0.2, 0.8, 3, 100, 270, 15, 15, Color.BLUE, this));
-        this.balls.add(new Ball(0.5, 0.5, 3, 200, 230, 15, 15, Color.GREEN, this));
+        this.balls.add(new Ball(0.5, -0.5, 2, bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 15, 15, Color.CYAN, this));
 
         this.blocks = new ArrayList<>();
 
@@ -105,9 +106,6 @@ public class Game implements Runnable {
         this.blocks.add(new Block(140, 110, 20, 40, Color.RED, this));
         this.blocks.add(new Block(180, 110, 20, 40, Color.LIGHT_GRAY, this));
         this.blocks.add(new Block(220, 110, 20, 40, Color.MAGENTA, this));
-
-
-        this.bat = new Bat((positionManager.getMaxX() - Bat.INITIAL_WIDTH) / 2, Bat.INITIAL_WIDTH, Color.BLACK, this);
     }
 
     /**
@@ -123,11 +121,11 @@ public class Game implements Runnable {
         for (Ball ball : getBalls()) {
             ball.start();
         }
-        while (hasLivesRemaining() || !this.getBalls().isEmpty()) {
-            System.out.println("livesRemaining " + livesRemaining + "     this.getBalls().size()" + this.getBalls().size()); // TODO remove once working fully
-        }
 
-        System.out.println("livesRemaining " + livesRemaining + "     this.getBalls().size()" + this.getBalls().size() + " THREAD FINISHED"); // TODO remove once working fully
+        while ((hasLivesRemaining() || !this.getBalls().isEmpty()) && !this.blocks.isEmpty()); // TODO replace with wait and notify
+
+        this.balls = new ArrayList<>();
+        this.blocks = new ArrayList<>(); // TODO remove all GameGUI when game is finished
     }
 
     /**
@@ -247,7 +245,7 @@ public class Game implements Runnable {
      */
     public void newBall() {
         if (this.hasLivesRemaining()) {
-            final Ball newBall = new Ball(0.8, -0.2, 3, this.bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 15, 15, Color.CYAN, this);
+            final Ball newBall = new Ball(0.5, -0.5, 2, bat.getMiddleX(), positionManager.getMaxY() - Ball.INITIAL_Y, 15, 15, Color.CYAN, this);
             this.balls.add(newBall);
             newBall.display();
             newBall.start();
