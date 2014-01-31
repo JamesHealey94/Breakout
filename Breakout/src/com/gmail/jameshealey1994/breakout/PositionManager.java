@@ -1,5 +1,6 @@
 package com.gmail.jameshealey1994.breakout;
 
+import com.gmail.jameshealey1994.breakout.object.Ball;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import com.gmail.jameshealey1994.breakout.object.MovableGameObject;
 
@@ -70,9 +71,11 @@ public class PositionManager {
         if (isTouchingFloor(moving)) {
             synchronized (Lock.LOCK) {
                 moving.setAlive(false);
-                game.setLivesRemaining(game.getLivesRemaining() - 1);
-                game.getBalls().remove(moving);
-                game.newBall();
+                if (moving instanceof Ball) {
+                    game.setLivesRemaining(game.getLivesRemaining() - 1);
+                    game.removeBall((Ball) moving);
+                    game.newBall();
+                }
             }
         }
 

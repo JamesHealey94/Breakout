@@ -109,7 +109,7 @@ public class Game implements Runnable {
     }
 
     /**
-     * Starts the game's thread.
+     * Starts the thread of the game.
      */
     public void start() {
         thread = new Thread(this);
@@ -169,12 +169,12 @@ public class Game implements Runnable {
     }
 
     /**
-     * Get the value of balls.
+     * Returns the balls in the game as an unmodifiable collection.
      *
-     * @return the value of balls
+     * @return  the balls in the game as an unmodifiable collection
      */
     public Collection<Ball> getBalls() {
-        return balls;
+        return Collections.unmodifiableCollection(balls);
     }
 
     /**
@@ -214,12 +214,12 @@ public class Game implements Runnable {
     }
 
     /**
-     * Returns the object's blocks as an unmodifiable collection.
+     * Returns the blocks in the game as an unmodifiable collection.
      *
-     * @return  the object's blocks as an unmodifiable collection
+     * @return  the blocks in the game as an unmodifiable collection
      */
     public Collection<Block> getBlocks() {
-        return blocks;
+        return Collections.unmodifiableCollection(blocks);
     }
 
     /**
@@ -283,24 +283,23 @@ public class Game implements Runnable {
         return Collections.unmodifiableSet(objects);
     }
 
-//    TODO perhaps remove
-//    /**
-//     * Adds a GameObject to the objects Set.
-//     *
-//     * @param object    object to be added to the set
-//     * @return          if the object was successfully added
-//     */
-//    public boolean addGameObject(GameObject object) {
-//        return objects.add(object);
-//    }
-//
-//    /**
-//     * Removes a GameObject from the objects Set.
-//     *
-//     * @param object    object to be removed from the set
-//     * @return          if the object was successfully removed
-//     */
-//    public boolean removeGameObject(GameObject object) {
-//        return objects.remove(object);
-//    }
+    /**
+     * Removes a Ball from the game.
+     *
+     * @param ball      ball to be removed from the game
+     * @return          if the ball was successfully removed
+     */
+    public boolean removeBall(Ball ball) {
+        return balls.remove(ball);
+    }
+
+    /**
+     * Removes a Block from the game.
+     *
+     * @param block     blocks to be removed from the game
+     * @return          if the block was successfully removed
+     */
+    public boolean removeBlock (Block block) {
+        return blocks.remove(block);
+    }
 }
