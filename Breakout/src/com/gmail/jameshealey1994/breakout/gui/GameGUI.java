@@ -29,7 +29,7 @@ public class GameGUI extends JFrame {
 
         gamePanel = new GamePanel();
         this.add(gamePanel, BorderLayout.CENTER);
-        //this.setResizable(false); // TODO uncomment after display work is finished
+        this.setResizable(false);
         this.pack();
     }
 

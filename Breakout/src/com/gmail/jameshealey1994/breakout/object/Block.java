@@ -30,7 +30,6 @@ public class Block extends GameObject {
         moving.changeDirectionX();
         moving.changeDirectionY();
         this.clear();
-        //this.getPositionManager().removeGameObject(this); TODO remove
         this.getGame().getBlocks().remove(this);
         this.getGame().setPoints(this.getGame().getPoints() + 1); // TODO change points given based on different factors
     }

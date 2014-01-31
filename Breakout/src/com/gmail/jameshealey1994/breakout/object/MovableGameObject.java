@@ -85,7 +85,6 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
 
     @Override
     public void run() {
-        //getPositionManager().addGameObject(this); // TODO change? TODO remove
         while (isAlive()) {
             synchronized (Lock.LOCK) {
                 clear();
@@ -94,8 +93,6 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
             }
             sleep();
         }
-        //System.out.println("dead"); // TODO remove
-        //getPositionManager().removeGameObject(this); // TODO change? TODO remove
     }
 
     /**
