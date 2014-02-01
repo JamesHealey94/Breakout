@@ -54,7 +54,7 @@ public class Game implements Runnable {
     /**
      * The JComponent the Game is being played on.
      */
-    private JComponent gamePanel;
+    private final JComponent gamePanel;
 
     /**
      * The points the player of the game has scored.
@@ -299,7 +299,7 @@ public class Game implements Runnable {
      * @param block     blocks to be removed from the game
      * @return          if the block was successfully removed
      */
-    public boolean removeBlock (Block block) {
+    public boolean removeBlock(Block block) {
         return blocks.remove(block);
     }
 }

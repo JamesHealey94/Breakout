@@ -91,7 +91,7 @@ public class PositionManager {
      */
     private boolean isTouchingX(MovableGameObject moving, GameObject obj) {
         return ((moving.getX() + moving.getWidth()) >= obj.getX())
-                && ((moving.getX()/* + moving.getWidth()*/) <= (obj.getX() + obj.getWidth()));
+                && ((moving.getX()) <= (obj.getX() + obj.getWidth()));
     }
 
     /**
@@ -103,7 +103,7 @@ public class PositionManager {
      */
     private boolean isTouchingY(MovableGameObject moving, GameObject obj) {
         return ((moving.getY() + moving.getHeight()) >= obj.getY())
-                && ((moving.getY()/* + moving.getHeight()*/) <= (obj.getY() + obj.getHeight()));
+                && ((moving.getY()) <= (obj.getY() + obj.getHeight()));
     }
 
     /**
@@ -113,7 +113,6 @@ public class PositionManager {
      * @return          if the moving object is touching the ceiling
      */
     private boolean isTouchingCeiling(MovableGameObject moving) {
-        //System.out.println("top            " + moving.getX() + " " + moving.getY());
         return moving.getY() <= 0;
     }
 
@@ -124,7 +123,6 @@ public class PositionManager {
      * @return          if the moving object is touching the floor
      */
     private boolean isTouchingFloor(MovableGameObject moving) {
-        //System.out.println("bottom         " + moving.getX() + " " + moving.getY());
         return moving.getY() >= maxY;
     }
 
@@ -135,7 +133,6 @@ public class PositionManager {
      * @return          if the moving object is touching the left wall
      */
     private boolean isTouchingLeftWall(MovableGameObject moving) {
-        //System.out.println("left wall      " + moving.getX() + " " + moving.getY());
         return moving.getX() <= 0;
     }
 
@@ -146,7 +143,6 @@ public class PositionManager {
      * @return          if the moving object is touching the right wall
      */
     private boolean isTouchingRightWall(MovableGameObject moving) {
-        //System.out.println("right wall     " + moving.getX() + " " + moving.getY());
         return moving.getX() + moving.getWidth() >= maxX;
     }
 
