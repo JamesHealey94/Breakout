@@ -30,14 +30,34 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'),
-                "moveLeft");
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"),
-                "moveLeft");
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'),
-                "moveRight");
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"),
-                "moveRight");
+
+        final char[] leftKeysChars = {'a'};
+        final String[] leftKeysStrings = {"LEFT"};
+        final String leftMethodName = "moveLeft";
+
+        for (char key : leftKeysChars) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                leftMethodName);
+        }
+
+        for (String key : leftKeysStrings) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                leftMethodName);
+        }
+
+        final char[] rightKeysChars = {'d'};
+        final String[] rightKeysStrings = {"RIGHT"};
+        final String rightMethodName = "moveRight";
+
+        for (char key : rightKeysChars) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                rightMethodName);
+        }
+
+        for (String key : rightKeysStrings) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                rightMethodName);
+        }
 
         game = new Game(this);
 
@@ -79,8 +99,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         };
 
-        this.getActionMap().put("moveLeft", moveLeft);
-        this.getActionMap().put("moveRight", moveRight);
+        this.getActionMap().put(leftMethodName, moveLeft);
+        this.getActionMap().put(rightMethodName, moveRight);
 
         game.start();
         try {
