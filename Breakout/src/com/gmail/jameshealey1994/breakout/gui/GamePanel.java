@@ -34,30 +34,12 @@ public class GamePanel extends JPanel implements Runnable {
         final char[] leftKeysChars = {'a'};
         final String[] leftKeysStrings = {"LEFT"};
         final String leftMethodName = "moveLeft";
-
-        for (char key : leftKeysChars) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                leftMethodName);
-        }
-
-        for (String key : leftKeysStrings) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                leftMethodName);
-        }
+        putToInputMap(leftKeysChars, leftKeysStrings, leftMethodName);
 
         final char[] rightKeysChars = {'d'};
         final String[] rightKeysStrings = {"RIGHT"};
         final String rightMethodName = "moveRight";
-
-        for (char key : rightKeysChars) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                rightMethodName);
-        }
-
-        for (String key : rightKeysStrings) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                rightMethodName);
-        }
+        putToInputMap(rightKeysChars, rightKeysStrings, rightMethodName);
 
         game = new Game(this);
 
@@ -111,6 +93,25 @@ public class GamePanel extends JPanel implements Runnable {
             Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "Points: " + game.getPoints(), "Points", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    /**
+     * Puts keys and corresponding methods onto InputMap.
+     *
+     * @param charKeys      Keys represented by chars
+     * @param stringKeys    Keys represented by Strings
+     * @param methodName    Name of the method
+     */
+    private void putToInputMap(final char[] charKeys, final String[] stringKeys, final String methodName) {
+        for (char key : charKeys) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                    methodName);
+        }
+
+        for (String key : stringKeys) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                    methodName);
+        }
     }
 
     @Override
