@@ -81,6 +81,23 @@ public class Bat extends MovableGameObject {
         return this.getX() + this.getWidth();
     }
 
+    /**
+     * Sets the value of X if the new X will be valid.
+     *
+     * @param x     possible new X value
+     */
+    @Override
+    public void setX(double x) {
+        if (this.isValidMove(x)) {
+            super.setX(x);
+        }
+    }
+
+    /**
+     * Sets stepY to 0, as Bats should not move in the Y direction.
+     *
+     * @param stepY     any double value - ignored
+     */
     @Override
     public void setStepY(double stepY) {
         super.setStepY(0);
