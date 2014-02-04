@@ -23,7 +23,7 @@ public class GameGUI extends JFrame {
     GameGUI() {
         this.setTitle("Breakout");
         this.setBackground(Color.LIGHT_GRAY);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); // TODO fix NPE in DisplayManager on close.
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         //this.setIconImage(null); // TODO create Icon
         this.setLayout(new BorderLayout());
 

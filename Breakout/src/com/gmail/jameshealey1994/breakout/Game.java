@@ -118,6 +118,9 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+
+        bat.start();
+
         for (Ball ball : getBalls()) {
             ball.start();
         }

@@ -1,8 +1,6 @@
 package com.gmail.jameshealey1994.breakout.gui;
 
 import com.gmail.jameshealey1994.breakout.Game;
-import com.gmail.jameshealey1994.breakout.Lock;
-import com.gmail.jameshealey1994.breakout.object.Bat;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -26,64 +24,21 @@ public class GamePanel extends JPanel implements Runnable {
     /**
      * Game using the Game Panel.
      */
-    private Game game/* = new Game(this)*/; // TODO figure out why balls and bat aren't shown if game is initialised here and not in run()
+    private Game game;
 
     @Override
     public void run() {
-
         final char[] leftKeysChars = {'a'};
         final String[] leftKeysStrings = {"LEFT"};
-        final String leftMethodName = "moveLeft";
-        putToInputMap(leftKeysChars, leftKeysStrings, leftMethodName);
 
         final char[] rightKeysChars = {'d'};
         final String[] rightKeysStrings = {"RIGHT"};
-        final String rightMethodName = "moveRight";
-        putToInputMap(rightKeysChars, rightKeysStrings, rightMethodName);
+
+        setupLeftKeyPressActions(leftKeysChars, leftKeysStrings);
+        setupRightKeyPressActions(rightKeysChars, rightKeysStrings);
+        setupKeyReleaseActions(leftKeysChars, leftKeysStrings, rightKeysChars, rightKeysStrings);
 
         game = new Game(this);
-
-        final Action moveLeft = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("left"); // TODO remove
-                final Bat bat = game.getBat();
-
-                synchronized (Lock.LOCK) {
-                    for (int i = 0; i < 10; i++) {
-                        bat.clear();
-                        final double newPosX = bat.getX() - 1;
-                        if (bat.isValidMove(newPosX)) {
-                            bat.setX(newPosX);
-                        }
-                        bat.display();
-                    }
-                }
-            }
-        };
-
-        final Action moveRight = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("right"); // TODO remove
-                final Bat bat = game.getBat();
-
-                synchronized (Lock.LOCK) {
-                    for (int i = 0; i < 10; i++) {
-                        bat.clear();
-                        final double newPosX = bat.getX() + 1;
-                        if (bat.isValidMove(newPosX)) {
-                            bat.setX(newPosX);
-                        }
-                        bat.display();
-                    }
-                }
-            }
-        };
-
-        this.getActionMap().put(leftMethodName, moveLeft);
-        this.getActionMap().put(rightMethodName, moveRight);
-
         game.start();
         try {
             if (game.getThread().isAlive()) {
@@ -95,22 +50,85 @@ public class GamePanel extends JPanel implements Runnable {
         JOptionPane.showMessageDialog(this, "Points: " + game.getPoints(), "Points", JOptionPane.PLAIN_MESSAGE);
     }
 
-    /**
-     * Puts keys and corresponding methods onto InputMap.
-     *
-     * @param charKeys      Keys represented by chars
-     * @param stringKeys    Keys represented by Strings
-     * @param methodName    Name of the method
-     */
-    private void putToInputMap(final char[] charKeys, final String[] stringKeys, final String methodName) {
-        for (char key : charKeys) {
+    private void setupLeftKeyPressActions(final char[] leftKeysChars, final String[] leftKeysStrings) {
+        final String leftMethodName = "moveLeft";
+
+        final Action moveLeft = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("left"); // TODO remove
+                game.getBat().setStepX(-1);
+            }
+        };
+
+        this.getActionMap().put(leftMethodName, moveLeft);
+
+        for (char key : leftKeysChars) {
             this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    methodName);
+                    leftMethodName);
         }
 
-        for (String key : stringKeys) {
+        for (String key : leftKeysStrings) {
             this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    methodName);
+                    leftMethodName);
+        }
+    }
+
+    private void setupRightKeyPressActions(final char[] rightKeysChars, final String[] rightKeysStrings) {
+        final String rightMethodName = "moveRight";
+
+        final Action moveRight = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("right"); // TODO remove
+                game.getBat().setStepX(1);
+            }
+        };
+
+        this.getActionMap().put(rightMethodName, moveRight);
+
+        for (char key : rightKeysChars) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                    rightMethodName);
+        }
+
+        for (String key : rightKeysStrings) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
+                    rightMethodName);
+        }
+    }
+
+    private void setupKeyReleaseActions(final char[] leftKeysChars, final String[] leftKeysStrings, final char[] rightKeysChars, final String[] rightKeysStrings) {
+        final String stopMovingMethodName = "stopMoving";
+
+        final Action stopMoving = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("stop"); // TODO remove
+                game.getBat().setStepX(0);
+            }
+        };
+
+        this.getActionMap().put(stopMovingMethodName, stopMoving);
+
+        for (char key : leftKeysChars) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + String.valueOf(key).toUpperCase()),
+                    stopMovingMethodName);
+        }
+
+        for (String key : leftKeysStrings) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + key),
+                    stopMovingMethodName);
+        }
+
+        for (char key : rightKeysChars) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + String.valueOf(key).toUpperCase()),
+                    stopMovingMethodName);
+        }
+
+        for (String key : rightKeysStrings) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + key),
+                    stopMovingMethodName);
         }
     }
 

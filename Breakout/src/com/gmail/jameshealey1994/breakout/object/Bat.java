@@ -8,7 +8,7 @@ import java.awt.Color;
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
-public class Bat extends GameObject {
+public class Bat extends MovableGameObject {
 
     /**
      * The Y coordinate of the top of all the bats.
@@ -35,7 +35,7 @@ public class Bat extends GameObject {
      * @param game              Game the object belongs to
      */
     public Bat(double x, double width, Color color, Game game) {
-        super(x, game.getPositionManager().getMaxY() - BAT_Y, BAT_HEIGHT, width, color, game);
+        super(0, 0, 2, x, game.getPositionManager().getMaxY() - BAT_Y, BAT_HEIGHT, width, color, game);
     }
 
     /**
@@ -79,5 +79,10 @@ public class Bat extends GameObject {
      */
     public double getRightmostX() {
         return this.getX() + this.getWidth();
+    }
+
+    @Override
+    public void setStepY(double stepY) {
+        super.setStepY(0);
     }
 }
