@@ -4,7 +4,9 @@ import com.gmail.jameshealey1994.breakout.Game;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -28,15 +30,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        final char[] leftKeysChars = {'a'};
-        final String[] leftKeysStrings = {"LEFT"};
+        final char[] leftKeyChars = {'a'};
+        final String[] leftKeyStrings = {"LEFT"};
 
-        final char[] rightKeysChars = {'d'};
-        final String[] rightKeysStrings = {"RIGHT"};
+        final char[] rightKeyChars = {'d'};
+        final String[] rightKeyStrings = {"RIGHT"};
 
-        setupLeftKeyPressActions(leftKeysChars, leftKeysStrings);
-        setupRightKeyPressActions(rightKeysChars, rightKeysStrings);
-        setupKeyReleaseActions(leftKeysChars, leftKeysStrings, rightKeysChars, rightKeysStrings);
+        setupKeyActions("moveLeft", -1, leftKeyChars, leftKeyStrings);
+        setupKeyActions("moveRight", 1, rightKeyChars, rightKeyStrings);
+        String[] keyStrings = getReleasedKeyStrings(leftKeyStrings, rightKeyStrings, leftKeyChars, rightKeyChars);
+        setupKeyActions("stopMoving", 0, new char[] {}, keyStrings);
 
         game = new Game(this);
         game.start();
@@ -50,85 +53,33 @@ public class GamePanel extends JPanel implements Runnable {
         JOptionPane.showMessageDialog(this, "Points: " + game.getPoints(), "Points", JOptionPane.PLAIN_MESSAGE);
     }
 
-    private void setupLeftKeyPressActions(final char[] leftKeysChars, final String[] leftKeysStrings) {
-        final String leftMethodName = "moveLeft";
-
+    /**
+     * Put key actions 
+     * 
+     * @param methodName    name of method to be put on the ActionMap
+     * @param stepX         how far the object moves up every step
+     * @param keysChars     chars to be put on the InputMap
+     * @param keysStrings   strings to be put on the InputMap
+     */
+    private void setupKeyActions(final String methodName, final double stepX, final char[] keysChars, final String[] keysStrings) {
         final Action moveLeft = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("left"); // TODO remove
-                game.getBat().setStepX(-1);
+                System.out.println(methodName); // TODO remove
+                game.getBat().setStepX(stepX);
             }
         };
 
-        this.getActionMap().put(leftMethodName, moveLeft);
+        this.getActionMap().put(methodName, moveLeft);
 
-        for (char key : leftKeysChars) {
+        for (char key : keysChars) {
             this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    leftMethodName);
+                    methodName);
         }
 
-        for (String key : leftKeysStrings) {
+        for (String key : keysStrings) {
             this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    leftMethodName);
-        }
-    }
-
-    private void setupRightKeyPressActions(final char[] rightKeysChars, final String[] rightKeysStrings) {
-        final String rightMethodName = "moveRight";
-
-        final Action moveRight = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("right"); // TODO remove
-                game.getBat().setStepX(1);
-            }
-        };
-
-        this.getActionMap().put(rightMethodName, moveRight);
-
-        for (char key : rightKeysChars) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    rightMethodName);
-        }
-
-        for (String key : rightKeysStrings) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    rightMethodName);
-        }
-    }
-
-    private void setupKeyReleaseActions(final char[] leftKeysChars, final String[] leftKeysStrings, final char[] rightKeysChars, final String[] rightKeysStrings) {
-        final String stopMovingMethodName = "stopMoving";
-
-        final Action stopMoving = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("stop"); // TODO remove
-                game.getBat().setStepX(0);
-            }
-        };
-
-        this.getActionMap().put(stopMovingMethodName, stopMoving);
-
-        for (char key : leftKeysChars) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + String.valueOf(key).toUpperCase()),
-                    stopMovingMethodName);
-        }
-
-        for (String key : leftKeysStrings) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + key),
-                    stopMovingMethodName);
-        }
-
-        for (char key : rightKeysChars) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + String.valueOf(key).toUpperCase()),
-                    stopMovingMethodName);
-        }
-
-        for (String key : rightKeysStrings) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + key),
-                    stopMovingMethodName);
+                    methodName);
         }
     }
 
@@ -146,5 +97,31 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(640, 480);
+    }
+
+    /**
+     * Returns a String array of released keys.
+     * 
+     * @param leftKeyStrings    Strings representing keys, to be added
+     * @param rightKeyStrings   Strings representing keys, to be added
+     * @param leftKeyChars      chars representing keys, to be added
+     * @param rightKeyChars     chars representing keys, to be added
+     * @return                  String array of released keys
+     */
+    private String[] getReleasedKeyStrings(final String[] leftKeyStrings, final String[] rightKeyStrings, final char[] leftKeyChars, final char[] rightKeyChars) {
+        List<String> keyStrings = new ArrayList<>();
+        for (String string : leftKeyStrings) {
+            keyStrings.add("released " + string);
+        }
+        for (String string : rightKeyStrings) {
+            keyStrings.add("released " + string);
+        }
+        for (char key : leftKeyChars) {
+            keyStrings.add("released " + String.valueOf(key).toUpperCase());
+        }
+        for (char key : rightKeyChars) {
+            keyStrings.add("released " + String.valueOf(key).toUpperCase());
+        }
+        return keyStrings.toArray(new String[keyStrings.size()]);
     }
 }
