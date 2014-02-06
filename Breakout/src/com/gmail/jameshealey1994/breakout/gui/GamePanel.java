@@ -4,9 +4,9 @@ import com.gmail.jameshealey1994.breakout.Game;
 import com.gmail.jameshealey1994.breakout.object.GameObject;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         setupKeyActions("moveLeft", -1, leftKeyChars, leftKeyStrings);
         setupKeyActions("moveRight", 1, rightKeyChars, rightKeyStrings);
-        String[] keyStrings = getReleasedKeyStrings(leftKeyStrings, rightKeyStrings, leftKeyChars, rightKeyChars);
+        final String[] keyStrings = getReleasedKeyStrings(leftKeyStrings, rightKeyStrings, leftKeyChars, rightKeyChars);
         setupKeyActions("stopMoving", 0, new char[] {}, keyStrings);
 
         game = new Game(this);
@@ -54,8 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Put key actions 
-     * 
+     * Put key actions.
+     *
      * @param methodName    name of method to be put on the ActionMap
      * @param stepX         how far the object moves up every step
      * @param keysChars     chars to be put on the InputMap
@@ -101,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     /**
      * Returns a String array of released keys.
-     * 
+     *
      * @param leftKeyStrings    Strings representing keys, to be added
      * @param rightKeyStrings   Strings representing keys, to be added
      * @param leftKeyChars      chars representing keys, to be added
@@ -109,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
      * @return                  String array of released keys
      */
     private String[] getReleasedKeyStrings(final String[] leftKeyStrings, final String[] rightKeyStrings, final char[] leftKeyChars, final char[] rightKeyChars) {
-        List<String> keyStrings = new ArrayList<>();
+        final List<String> keyStrings = new ArrayList<>();
         for (String string : leftKeyStrings) {
             keyStrings.add("released " + string);
         }
