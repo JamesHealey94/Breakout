@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 /**
- * GUI for Breakout Game.
+ * Game GUI for Breakout Game.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */

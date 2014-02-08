@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * GUI for Breakout Game Main Menu.
+ * Main Menu GUI for Breakout Game.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
@@ -43,14 +43,11 @@ public class MainMenuGUI extends JFrame {
         });
         buttonPanel.add(playButton);
 
-        playButton.setVisible(true);
-        buttonPanel.add(playButton);
-
         final JButton scoresButton = new JButton("Scores");
         scoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Display scores
+                createAndShowScoresGUI();
             }
         });
         buttonPanel.add(scoresButton);
@@ -59,12 +56,21 @@ public class MainMenuGUI extends JFrame {
     }
 
     /**
-     * Creates and shows the game gui.
+     * Creates and shows the game GUI.
      */
     private void createAndShowGameGUI() {
         final GameGUI gameGUI = new GameGUI();
         gameGUI.setLocationRelativeTo(this);
         gameGUI.setVisible(true);
         gameGUI.start();
+    }
+
+    /**
+     * Creates and shows the scores GUI.
+     */
+    private void createAndShowScoresGUI() {
+        final ScoresGUI scoresGUI = new ScoresGUI();
+        scoresGUI.setLocationRelativeTo(this);
+        scoresGUI.setVisible(true);
     }
 }
