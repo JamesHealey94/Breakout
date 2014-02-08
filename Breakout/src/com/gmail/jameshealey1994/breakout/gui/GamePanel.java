@@ -56,30 +56,29 @@ public class GamePanel extends JPanel implements Runnable {
     /**
      * Put key actions.
      *
-     * @param methodName    name of method to be put on the ActionMap
-     * @param stepX         how far the object moves up every step
+     * @param actionName    name of action to be put on the ActionMap
+     * @param stepX         how far the object moves right every step
      * @param keysChars     chars to be put on the InputMap
      * @param keysStrings   strings to be put on the InputMap
      */
-    private void setupKeyActions(final String methodName, final double stepX, final char[] keysChars, final String[] keysStrings) {
-        final Action moveLeft = new AbstractAction() {
+    private void setupKeyActions(final String actionName, final double stepX, final char[] keysChars, final String[] keysStrings) {
+        final Action action = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(methodName); // TODO remove
                 game.getBat().setStepX(stepX);
             }
         };
 
-        this.getActionMap().put(methodName, moveLeft);
+        this.getActionMap().put(actionName, action);
 
         for (char key : keysChars) {
             this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    methodName);
+                    actionName);
         }
 
         for (String key : keysStrings) {
             this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),
-                    methodName);
+                    actionName);
         }
     }
 
