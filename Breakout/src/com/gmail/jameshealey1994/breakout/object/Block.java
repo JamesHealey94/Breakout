@@ -29,7 +29,6 @@ public class Block extends GameObject {
     public void onHit(MovableGameObject moving) {
         moving.changeDirectionX();
         moving.changeDirectionY();
-        this.clear();
         this.getGame().removeBlock(this);
         this.getGame().setPoints(this.getGame().getPoints() + 1); // TODO change points given based on different factors
     }

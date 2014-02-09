@@ -92,13 +92,6 @@ public abstract class GameObject {
     }
 
     /**
-     * Clears the GameObject from display.
-     */
-    public void clear() {
-        gamePanel.repaint(); // TODO change / improve
-    }
-
-    /**
      * Get the value of x.
      *
      * @return the value of x

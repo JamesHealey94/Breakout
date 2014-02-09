@@ -87,7 +87,6 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
     public void run() {
         while (isAlive()) {
             synchronized (Lock.LOCK) {
-                clear();
                 move();
                 display();
             }
