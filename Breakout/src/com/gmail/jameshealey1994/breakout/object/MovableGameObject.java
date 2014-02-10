@@ -201,10 +201,4 @@ public abstract class MovableGameObject extends GameObject implements Runnable {
             this.delay = delay;
         }
     }
-
-    @Override
-    public void onHit(MovableGameObject moving) {
-        moving.changeDirectionX();
-        this.changeDirectionX();
-    }
 }

@@ -43,4 +43,12 @@ public class Ball extends MovableGameObject {
         g.setColor(getColor());
         g.fillOval((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
     }
+
+    @Override
+    public void onHit(MovableGameObject moving) {
+        this.changeDirectionX();
+        if (!(moving instanceof Bat)) {
+            moving.changeDirectionX();
+        }
+    }
 }
