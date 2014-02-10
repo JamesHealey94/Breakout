@@ -119,16 +119,28 @@ public class Game implements Runnable {
     @Override
     public void run() {
 
-        bat.start();
+        this.getBat().start();
 
-        for (Ball ball : getBalls()) {
+        for (Ball ball : this.getBalls()) {
             ball.start();
         }
-
-        while ((hasLivesRemaining() || !this.getBalls().isEmpty()) && !this.blocks.isEmpty()); // TODO replace with wait and notify
+        this.waitTillGameOver();
 
         this.balls = new ArrayList<>();
         this.blocks = new ArrayList<>(); // TODO remove all GameGUI when game is finished
+    }
+
+    /**
+     * Waits until the game is over.
+     */
+    private synchronized void waitTillGameOver() {
+        while ((hasLivesRemaining() || !this.getBalls().isEmpty()) && !this.blocks.isEmpty()) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.print("InterruptedException in game.waitTillGameOver");
+            }
+        }
     }
 
     /**
@@ -154,12 +166,13 @@ public class Game implements Runnable {
      *
      * @param livesRemaining new value of livesRemaining
      */
-    public void setLivesRemaining(int livesRemaining) {
+    public synchronized void setLivesRemaining(int livesRemaining) {
         if (livesRemaining <= 0) {
             this.livesRemaining = 0;
         } else {
             this.livesRemaining = livesRemaining;
         }
+        this.notifyAll();
     }
 
     /**
@@ -185,8 +198,9 @@ public class Game implements Runnable {
      *
      * @param balls new value of balls
      */
-    public void setBalls(Collection<Ball> balls) {
+    public synchronized void setBalls(Collection<Ball> balls) {
         this.balls = balls;
+        this.notifyAll();
     }
 
     /**
@@ -230,8 +244,9 @@ public class Game implements Runnable {
      *
      * @param blocks    new blocks value
      */
-    public void setBlocks(Collection<Block> blocks) {
+    public synchronized void setBlocks(Collection<Block> blocks) {
         this.blocks = blocks;
+        this.notifyAll();
     }
 
     /**
@@ -292,8 +307,10 @@ public class Game implements Runnable {
      * @param ball      ball to be removed from the game
      * @return          if the ball was successfully removed
      */
-    public boolean removeBall(Ball ball) {
-        return balls.remove(ball);
+    public synchronized boolean removeBall(Ball ball) {
+        final boolean result = balls.remove(ball);
+        this.notifyAll();
+        return result;
     }
 
     /**
@@ -302,7 +319,9 @@ public class Game implements Runnable {
      * @param block     blocks to be removed from the game
      * @return          if the block was successfully removed
      */
-    public boolean removeBlock(Block block) {
-        return blocks.remove(block);
+    public synchronized boolean removeBlock(Block block) {
+        final boolean result = blocks.remove(block);
+        this.notifyAll();
+        return result;
     }
 }
