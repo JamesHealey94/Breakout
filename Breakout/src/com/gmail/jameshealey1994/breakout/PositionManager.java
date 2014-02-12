@@ -40,19 +40,19 @@ public class PositionManager {
     }
 
     /**
-     * Updates positions of MovableGameObject passed and the positions of all
-     * GamesObjects in the PositionManager.
+     * Updates positions of MovableGameObject passed and any GamesObjects
+     * in the PositionManager that the MovableGameObject collides with.
      *
      * @param moving    object moving and possibly colliding with walls or other
      *                  objects
      */
-    public void update(MovableGameObject moving) {
+    public synchronized void update(MovableGameObject moving) {
         for (GameObject obj : game.getGameObjects()) {
             if (!(moving.equals(obj))) {
-                final boolean bounceX = isTouchingX(moving, obj); // TODO test an object inside an object, should position be set as well as direction changed?
-                final boolean bounceY = isTouchingY(moving, obj);
+                final boolean isTouchingX = isTouchingX(moving, obj);
+                final boolean isTouchingY = isTouchingY(moving, obj);
 
-                if (bounceX && bounceY) {
+                if (isTouchingX && isTouchingY) {
                     obj.onHit(moving);
                     break;
                 }
@@ -69,13 +69,11 @@ public class PositionManager {
         }
 
         if (isTouchingFloor(moving)) {
-            synchronized (Lock.LOCK) {
-                moving.setAlive(false);
-                if (moving instanceof Ball) {
-                    game.setLivesRemaining(game.getLivesRemaining() - 1);
-                    game.removeBall((Ball) moving);
-                    game.newBall();
-                }
+            moving.setAlive(false);
+            if (moving instanceof Ball) {
+                game.setLivesRemaining(game.getLivesRemaining() - 1);
+                game.removeBall((Ball) moving);
+                game.newBall();
             }
         }
 
