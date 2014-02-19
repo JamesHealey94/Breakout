@@ -30,7 +30,7 @@ public class ScoresGUI extends JFrame {
         this.setTitle(gameName + " - Scores");
         this.setBackground(Color.LIGHT_GRAY);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setIconImage(iconImage); // TODO create Icon
+        this.setIconImage(iconImage);
         this.setLayout(new BorderLayout());
 
         scoresPanel = new GamePanel();

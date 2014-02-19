@@ -35,7 +35,7 @@ public class Breakout {
      * @see http://docs.oracle.com/javase/tutorial/uiswing/painting/step1.html
      */
     private static void createAndShowGUI(String gameName) {
-        final MainMenuGUI gui = new MainMenuGUI(gameName);
+        final MainMenuGUI gui = new MainMenuGUI(gameName, null); // TODO create icon image
         gui.setVisible(true);
     }
 }
