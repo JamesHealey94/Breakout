@@ -18,12 +18,18 @@ import javax.swing.JPanel;
 public class MainMenuGUI extends JFrame {
 
     /**
+     * Name of the game.
+     */
+    private String gameName;
+
+    /**
      * Creates a new instance of the Game GUI.
      *
+     * @param gameName              the name of the game, used as part of title
      * @throws HeadlessException    thrown if user does not have a mouse or keyboard.
      */
-    public MainMenuGUI() throws HeadlessException {
-        this.setTitle("Breakout - Main Menu");
+    public MainMenuGUI(String gameName) throws HeadlessException {
+        this.setTitle(gameName + " - Main Menu");
         this.setLocationRelativeTo(null);
         this.setBackground(Color.LIGHT_GRAY);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -69,7 +75,7 @@ public class MainMenuGUI extends JFrame {
      * Creates and shows the scores GUI.
      */
     private void createAndShowScoresGUI() {
-        final ScoresGUI scoresGUI = new ScoresGUI();
+        final ScoresGUI scoresGUI = new ScoresGUI(gameName, null); // TODO create icon image
         scoresGUI.setLocationRelativeTo(this);
         scoresGUI.setVisible(true);
     }

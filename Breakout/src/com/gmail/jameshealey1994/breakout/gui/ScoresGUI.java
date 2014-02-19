@@ -3,12 +3,13 @@ package com.gmail.jameshealey1994.breakout.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
- * Scores Menu GUI for Breakout Game.
+ * Scores Menu GUI for a Game.
  *
  * @author JamesHealey94 <jameshealey1994.gmail.com>
  */
@@ -21,12 +22,15 @@ public class ScoresGUI extends JFrame {
 
     /**
      * Constructor - Sets up JFrame.
+     *
+     * @param gameName      name of the game, used as part of title
+     * @param iconImage     icon image
      */
-    public ScoresGUI() {
-        this.setTitle("Breakout - Scores");
+    public ScoresGUI(String gameName, Image iconImage) {
+        this.setTitle(gameName + " - Scores");
         this.setBackground(Color.LIGHT_GRAY);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        //this.setIconImage(null); // TODO create Icon
+        this.setIconImage(iconImage); // TODO create Icon
         this.setLayout(new BorderLayout());
 
         scoresPanel = new GamePanel();

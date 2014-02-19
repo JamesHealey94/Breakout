@@ -11,13 +11,18 @@ import javax.swing.SwingUtilities;
 public class Breakout {
 
     /**
+     * The name of the Game.
+     */
+    private static final String GAME_NAME = "Breakout";
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                createAndShowGUI();
+                createAndShowGUI(GAME_NAME);
             }
         });
     }
@@ -26,10 +31,11 @@ public class Breakout {
      * Creates and shows the main menu.
      * Runs on the Event Dispatch Thread to prevent possible deadlock.
      *
+     * @param gameName  the name of the game
      * @see http://docs.oracle.com/javase/tutorial/uiswing/painting/step1.html
      */
-    private static void createAndShowGUI() {
-        final MainMenuGUI gui = new MainMenuGUI();
+    private static void createAndShowGUI(String gameName) {
+        final MainMenuGUI gui = new MainMenuGUI(gameName);
         gui.setVisible(true);
     }
 }
